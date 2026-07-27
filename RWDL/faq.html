@@ -1,0 +1,29 @@
+<div class="content-body">
+    <!-- ===== العنوان ===== -->
+    <div class="section-header">
+        <span class="icon-big">❓</span>
+        <h2>الأسئلة العامة</h2>
+    </div>
+    <div class="section-desc">أكثر ما يبحث عنه الزوار</div>
+
+    <!-- ===== المحتوى ===== -->
+    <div class="qa-add-box">
+        <div class="field">
+            <label><i class="fas fa-user"></i> اسمك</label>
+            <input type="text" id="questionAuthor" placeholder="اكتب اسمك هنا" />
+        </div>
+        <div class="field">
+            <label><i class="fas fa-pen-fancy"></i> سؤالك</label>
+            <textarea id="questionText" placeholder="اكتب سؤالك هنا..."></textarea>
+        </div>
+        <button class="btn-red" onclick="addQuestion()">
+            <i class="fas fa-paper-plane"></i> إرسال السؤال
+        </button>
+    </div>
+    <div id="questionsList">
+        <div style="text-align:center;color:#94a3b8;padding:30px 10px;">
+            <i class="fas fa-comment-slash" style="color:#64748b;font-size:2rem;display:block;margin-bottom:10px;"></i>
+            جاري تحميل الأسئلة...
+        </div>
+    </div>
+</div>
