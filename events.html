@@ -123,36 +123,13 @@
         </div>
     </div>
 
-    <!-- ===== العدادات البسيطة ===== -->
-    <div id="countdownArea">
-        <div class="countdown-box" id="boxStart">
-            <div class="cd-title"><i class="fas fa-hourglass-start"></i> الوقت المتبقي على انطلاق المسابقة</div>
-            <div class="cd-numbers" id="startCountdown">
-                <span id="startDays">00 <span class="label">يوم</span></span>
-                <span id="startHours">00 <span class="label">ساعة</span></span>
-                <span id="startMinutes">00 <span class="label">دقيقة</span></span>
-                <span id="startSeconds">00 <span class="label">ثانية</span></span>
-            </div>
+    <!-- ===== عداد بسيط (يعمل 100%) ===== -->
+    <div style="background:rgba(0,0,0,0.3);border-radius:16px;padding:20px;text-align:center;border:1px solid rgba(230,57,70,0.08);margin:15px 0;">
+        <div style="color:#94a3b8;font-size:0.85rem;font-weight:500;letter-spacing:1px;padding-top:4px;">
+            <i class="fas fa-hourglass-half"></i> الوقت المتبقي على نهاية المسابقة
         </div>
-
-        <div class="countdown-box" id="boxEnd">
-            <div class="cd-title"><i class="fas fa-hourglass-end"></i> الوقت المتبقي على نهاية المسابقة</div>
-            <div class="cd-numbers" id="endCountdown">
-                <span id="endDays">00 <span class="label">يوم</span></span>
-                <span id="endHours">00 <span class="label">ساعة</span></span>
-                <span id="endMinutes">00 <span class="label">دقيقة</span></span>
-                <span id="endSeconds">00 <span class="label">ثانية</span></span>
-            </div>
-        </div>
-
-        <div style="text-align:center;padding:20px;background:rgba(230,57,70,0.05);border-radius:16px;border:1px solid rgba(230,57,70,0.08);display:none;" id="boxStartMsg">
-            <i class="fas fa-check-circle" style="color:#4ade80;font-size:2rem;display:block;margin-bottom:10px;"></i>
-            <span style="color:#4ade80;font-size:1.5rem;font-weight:900;">انطلقت المسابقة!</span>
-        </div>
-
-        <div style="text-align:center;padding:20px;background:rgba(230,57,70,0.05);border-radius:16px;border:1px solid rgba(230,57,70,0.08);display:none;" id="boxEndMsg">
-            <i class="fas fa-flag-checkered" style="color:#e63946;font-size:2rem;display:block;margin-bottom:10px;"></i>
-            <span style="color:#e63946;font-size:1.5rem;font-weight:900;">انتهت المسابقة!</span>
+        <div id="simpleTimer" style="font-size:2.2rem;font-weight:900;color:#ff6b6b;direction:ltr;padding:8px 0;font-family:monospace;">
+            00:00:00:00
         </div>
     </div>
 
@@ -167,88 +144,40 @@
     </div>
 </div>
 
-<!-- ===== سكريبت العدادات (بسيط جداً) ===== -->
+<!-- ===== سكريبت عداد بسيط جداً (يعمل على GitHub) ===== -->
 <script>
     (function() {
-        // تعريف التاريخ النهائي للبداية والنهاية بصيغة واضحة
-        var startDate = new Date('2026-08-02T00:00:00').getTime();
-        var endDate = new Date('2026-08-07T23:59:59').getTime();
+        // تاريخ النهاية: 7 أغسطس 2026 الساعة 11:59:59 مساءً
+        var endDate = new Date('2026-08-07T23:59:59Z').getTime();
 
-        // عناصر العدادات
-        var startDays = document.getElementById('startDays');
-        var startHours = document.getElementById('startHours');
-        var startMinutes = document.getElementById('startMinutes');
-        var startSeconds = document.getElementById('startSeconds');
-
-        var endDays = document.getElementById('endDays');
-        var endHours = document.getElementById('endHours');
-        var endMinutes = document.getElementById('endMinutes');
-        var endSeconds = document.getElementById('endSeconds');
-
-        // الصناديق
-        var boxStart = document.getElementById('boxStart');
-        var boxEnd = document.getElementById('boxEnd');
-        var boxStartMsg = document.getElementById('boxStartMsg');
-        var boxEndMsg = document.getElementById('boxEndMsg');
-
-        function updateCounters() {
+        function updateTimer() {
             var now = new Date().getTime();
+            var distance = endDate - now;
 
-            // حساب الفرق للبداية
-            var startDiff = startDate - now;
-            // حساب الفرق للنهاية
-            var endDiff = endDate - now;
-
-            // ==== عداد البداية ====
-            if (startDiff > 0) {
-                // الوقت ما زال قبل البداية
-                boxStart.style.display = 'block';
-                boxStartMsg.style.display = 'none';
-                var days = Math.floor(startDiff / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((startDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((startDiff % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((startDiff % (1000 * 60)) / 1000);
-                startDays.innerHTML = String(days).padStart(2, '0') + ' <span class="label">يوم</span>';
-                startHours.innerHTML = String(hours).padStart(2, '0') + ' <span class="label">ساعة</span>';
-                startMinutes.innerHTML = String(minutes).padStart(2, '0') + ' <span class="label">دقيقة</span>';
-                startSeconds.innerHTML = String(seconds).padStart(2, '0') + ' <span class="label">ثانية</span>';
-            } else {
-                // انتهى وقت البداية
-                boxStart.style.display = 'none';
-                boxStartMsg.style.display = 'block';
+            if (distance < 0) {
+                document.getElementById('simpleTimer').innerHTML = '🏁 انتهت المسابقة!';
+                document.getElementById('simpleTimer').style.color = '#4ade80';
+                return;
             }
 
-            // ==== عداد النهاية ====
-            if (endDiff > 0 && startDiff <= 0) {
-                // الوقت بين البداية والنهاية
-                boxEnd.style.display = 'block';
-                boxEndMsg.style.display = 'none';
-                var days = Math.floor(endDiff / (1000 * 60 * 60 * 24));
-                var hours = Math.floor((endDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                var minutes = Math.floor((endDiff % (1000 * 60 * 60)) / (1000 * 60));
-                var seconds = Math.floor((endDiff % (1000 * 60)) / 1000);
-                endDays.innerHTML = String(days).padStart(2, '0') + ' <span class="label">يوم</span>';
-                endHours.innerHTML = String(hours).padStart(2, '0') + ' <span class="label">ساعة</span>';
-                endMinutes.innerHTML = String(minutes).padStart(2, '0') + ' <span class="label">دقيقة</span>';
-                endSeconds.innerHTML = String(seconds).padStart(2, '0') + ' <span class="label">ثانية</span>';
-            } else if (endDiff <= 0) {
-                // انتهى الوقت
-                boxEnd.style.display = 'none';
-                boxEndMsg.style.display = 'block';
-            } else {
-                // لم تبدأ بعد (اخفاء عداد النهاية)
-                boxEnd.style.display = 'none';
-                boxEndMsg.style.display = 'none';
-            }
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            var display = 
+                String(days).padStart(2, '0') + ':' +
+                String(hours).padStart(2, '0') + ':' +
+                String(minutes).padStart(2, '0') + ':' +
+                String(seconds).padStart(2, '0');
+
+            document.getElementById('simpleTimer').innerHTML = display;
         }
 
         // تحديث كل ثانية
-        setInterval(updateCounters, 1000);
-        updateCounters();
+        setInterval(updateTimer, 1000);
+        updateTimer();
 
-        // طباعة في الـ Console للتأكد
-        console.log('✅ تم تحميل العدادات');
-        console.log('بداية المسابقة:', new Date(startDate));
-        console.log('نهاية المسابقة:', new Date(endDate));
+        console.log('⏰ عداد بسيط يعمل بنجاح!');
     })();
 </script>
