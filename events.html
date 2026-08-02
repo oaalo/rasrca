@@ -48,7 +48,6 @@
     </h3>
 
     <div class="grid-2col">
-        <!-- المركز الأول -->
         <div class="item-card" style="border-color:rgba(255,215,0,0.3);">
             <span style="font-size:2rem;display:block;">🥇</span>
             <div class="label" style="color:#ffd700;font-weight:900;">المركز الأول</div>
@@ -63,7 +62,6 @@
             </div>
         </div>
 
-        <!-- المركز الثاني -->
         <div class="item-card" style="border-color:rgba(192,192,192,0.3);">
             <span style="font-size:2rem;display:block;">🥈</span>
             <div class="label" style="color:#c0c0c0;font-weight:900;">المركز الثاني</div>
@@ -78,7 +76,6 @@
             </div>
         </div>
 
-        <!-- المركز الثالث -->
         <div class="item-card" style="border-color:rgba(205,127,50,0.3);">
             <span style="font-size:2rem;display:block;">🥉</span>
             <div class="label" style="color:#cd7f32;font-weight:900;">المركز الثالث</div>
@@ -126,27 +123,37 @@
         </div>
     </div>
 
-    <!-- ===== العدادات التنازلية (معدلة) ===== -->
-    <div class="countdown-box">
-        <div class="cd-title"><i class="fas fa-hourglass-start"></i> الوقت المتبقي على انطلاق المسابقة</div>
-        <div class="cd-numbers" id="startCountdown">
-            <span>00 <span class="label">يوم</span></span>
-            <span>00 <span class="label">ساعة</span></span>
-            <span>00 <span class="label">دقيقة</span></span>
-            <span>00 <span class="label">ثانية</span></span>
+    <!-- ===== العدادات البسيطة ===== -->
+    <div id="countdownArea">
+        <div class="countdown-box" id="boxStart">
+            <div class="cd-title"><i class="fas fa-hourglass-start"></i> الوقت المتبقي على انطلاق المسابقة</div>
+            <div class="cd-numbers" id="startCountdown">
+                <span id="startDays">00 <span class="label">يوم</span></span>
+                <span id="startHours">00 <span class="label">ساعة</span></span>
+                <span id="startMinutes">00 <span class="label">دقيقة</span></span>
+                <span id="startSeconds">00 <span class="label">ثانية</span></span>
+            </div>
         </div>
-        <div class="cd-message" id="startMessage"><i class="fas fa-check-circle"></i> انطلقت المسابقة!</div>
-    </div>
 
-    <div class="countdown-box end">
-        <div class="cd-title"><i class="fas fa-hourglass-end"></i> الوقت المتبقي على نهاية المسابقة</div>
-        <div class="cd-numbers" id="endCountdown">
-            <span>00 <span class="label">يوم</span></span>
-            <span>00 <span class="label">ساعة</span></span>
-            <span>00 <span class="label">دقيقة</span></span>
-            <span>00 <span class="label">ثانية</span></span>
+        <div class="countdown-box" id="boxEnd">
+            <div class="cd-title"><i class="fas fa-hourglass-end"></i> الوقت المتبقي على نهاية المسابقة</div>
+            <div class="cd-numbers" id="endCountdown">
+                <span id="endDays">00 <span class="label">يوم</span></span>
+                <span id="endHours">00 <span class="label">ساعة</span></span>
+                <span id="endMinutes">00 <span class="label">دقيقة</span></span>
+                <span id="endSeconds">00 <span class="label">ثانية</span></span>
+            </div>
         </div>
-        <div class="cd-message" id="endMessage"><i class="fas fa-flag-checkered"></i> انتهت المسابقة!</div>
+
+        <div style="text-align:center;padding:20px;background:rgba(230,57,70,0.05);border-radius:16px;border:1px solid rgba(230,57,70,0.08);display:none;" id="boxStartMsg">
+            <i class="fas fa-check-circle" style="color:#4ade80;font-size:2rem;display:block;margin-bottom:10px;"></i>
+            <span style="color:#4ade80;font-size:1.5rem;font-weight:900;">انطلقت المسابقة!</span>
+        </div>
+
+        <div style="text-align:center;padding:20px;background:rgba(230,57,70,0.05);border-radius:16px;border:1px solid rgba(230,57,70,0.08);display:none;" id="boxEndMsg">
+            <i class="fas fa-flag-checkered" style="color:#e63946;font-size:2rem;display:block;margin-bottom:10px;"></i>
+            <span style="color:#e63946;font-size:1.5rem;font-weight:900;">انتهت المسابقة!</span>
+        </div>
     </div>
 
     <!-- ===== إعتماد ===== -->
@@ -160,71 +167,88 @@
     </div>
 </div>
 
-<!-- ===== عدادات الفعالية (نسخة مستقرة) ===== -->
+<!-- ===== سكريبت العدادات (بسيط جداً) ===== -->
 <script>
     (function() {
-        // تعريف التواريخ (2 أغسطس 2026 - 7 أغسطس 2026)
-        var startDate = Date.UTC(2026, 7, 2, 0, 0, 0);
-        var endDate = Date.UTC(2026, 7, 7, 23, 59, 59);
+        // تعريف التاريخ النهائي للبداية والنهاية بصيغة واضحة
+        var startDate = new Date('2026-08-02T00:00:00').getTime();
+        var endDate = new Date('2026-08-07T23:59:59').getTime();
 
-        function updateCountdowns() {
+        // عناصر العدادات
+        var startDays = document.getElementById('startDays');
+        var startHours = document.getElementById('startHours');
+        var startMinutes = document.getElementById('startMinutes');
+        var startSeconds = document.getElementById('startSeconds');
+
+        var endDays = document.getElementById('endDays');
+        var endHours = document.getElementById('endHours');
+        var endMinutes = document.getElementById('endMinutes');
+        var endSeconds = document.getElementById('endSeconds');
+
+        // الصناديق
+        var boxStart = document.getElementById('boxStart');
+        var boxEnd = document.getElementById('boxEnd');
+        var boxStartMsg = document.getElementById('boxStartMsg');
+        var boxEndMsg = document.getElementById('boxEndMsg');
+
+        function updateCounters() {
             var now = new Date().getTime();
-            var startDistance = startDate - now;
-            var endDistance = endDate - now;
 
-            var startCd = document.getElementById('startCountdown');
-            var startMsg = document.getElementById('startMessage');
-            var endCd = document.getElementById('endCountdown');
-            var endMsg = document.getElementById('endMessage');
+            // حساب الفرق للبداية
+            var startDiff = startDate - now;
+            // حساب الفرق للنهاية
+            var endDiff = endDate - now;
 
-            // عداد البداية (يظهر قبل 2 أغسطس)
-            if (startCd && startMsg) {
-                if (startDistance < 0) {
-                    startCd.style.display = 'none';
-                    startMsg.style.display = 'block';
-                } else {
-                    startCd.style.display = 'flex';
-                    startMsg.style.display = 'none';
-                    var d = Math.floor(startDistance / (1000 * 60 * 60 * 24));
-                    var h = Math.floor((startDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    var m = Math.floor((startDistance % (1000 * 60 * 60)) / (1000 * 60));
-                    var s = Math.floor((startDistance % (1000 * 60)) / 1000);
-                    startCd.innerHTML =
-                        '<span>' + String(d).padStart(2, '0') + ' <span class="label">يوم</span></span>' +
-                        '<span>' + String(h).padStart(2, '0') + ' <span class="label">ساعة</span></span>' +
-                        '<span>' + String(m).padStart(2, '0') + ' <span class="label">دقيقة</span></span>' +
-                        '<span>' + String(s).padStart(2, '0') + ' <span class="label">ثانية</span></span>';
-                }
+            // ==== عداد البداية ====
+            if (startDiff > 0) {
+                // الوقت ما زال قبل البداية
+                boxStart.style.display = 'block';
+                boxStartMsg.style.display = 'none';
+                var days = Math.floor(startDiff / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((startDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((startDiff % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((startDiff % (1000 * 60)) / 1000);
+                startDays.innerHTML = String(days).padStart(2, '0') + ' <span class="label">يوم</span>';
+                startHours.innerHTML = String(hours).padStart(2, '0') + ' <span class="label">ساعة</span>';
+                startMinutes.innerHTML = String(minutes).padStart(2, '0') + ' <span class="label">دقيقة</span>';
+                startSeconds.innerHTML = String(seconds).padStart(2, '0') + ' <span class="label">ثانية</span>';
+            } else {
+                // انتهى وقت البداية
+                boxStart.style.display = 'none';
+                boxStartMsg.style.display = 'block';
             }
 
-            // عداد النهاية (يظهر من 2 أغسطس إلى 7 أغسطس)
-            if (endCd && endMsg) {
-                if (endDistance < 0) {
-                    endCd.style.display = 'none';
-                    endMsg.style.display = 'block';
-                } else {
-                    endCd.style.display = 'flex';
-                    endMsg.style.display = 'none';
-                    var d = Math.floor(endDistance / (1000 * 60 * 60 * 24));
-                    var h = Math.floor((endDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                    var m = Math.floor((endDistance % (1000 * 60 * 60)) / (1000 * 60));
-                    var s = Math.floor((endDistance % (1000 * 60)) / 1000);
-                    endCd.innerHTML =
-                        '<span>' + String(d).padStart(2, '0') + ' <span class="label">يوم</span></span>' +
-                        '<span>' + String(h).padStart(2, '0') + ' <span class="label">ساعة</span></span>' +
-                        '<span>' + String(m).padStart(2, '0') + ' <span class="label">دقيقة</span></span>' +
-                        '<span>' + String(s).padStart(2, '0') + ' <span class="label">ثانية</span></span>';
-                }
+            // ==== عداد النهاية ====
+            if (endDiff > 0 && startDiff <= 0) {
+                // الوقت بين البداية والنهاية
+                boxEnd.style.display = 'block';
+                boxEndMsg.style.display = 'none';
+                var days = Math.floor(endDiff / (1000 * 60 * 60 * 24));
+                var hours = Math.floor((endDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                var minutes = Math.floor((endDiff % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds = Math.floor((endDiff % (1000 * 60)) / 1000);
+                endDays.innerHTML = String(days).padStart(2, '0') + ' <span class="label">يوم</span>';
+                endHours.innerHTML = String(hours).padStart(2, '0') + ' <span class="label">ساعة</span>';
+                endMinutes.innerHTML = String(minutes).padStart(2, '0') + ' <span class="label">دقيقة</span>';
+                endSeconds.innerHTML = String(seconds).padStart(2, '0') + ' <span class="label">ثانية</span>';
+            } else if (endDiff <= 0) {
+                // انتهى الوقت
+                boxEnd.style.display = 'none';
+                boxEndMsg.style.display = 'block';
+            } else {
+                // لم تبدأ بعد (اخفاء عداد النهاية)
+                boxEnd.style.display = 'none';
+                boxEndMsg.style.display = 'none';
             }
         }
 
         // تحديث كل ثانية
-        setInterval(updateCountdowns, 1000);
-        updateCountdowns();
+        setInterval(updateCounters, 1000);
+        updateCounters();
 
-        // سجل التواريخ للتأكد
-        console.log('📅 بداية المسابقة:', new Date(startDate).toISOString());
-        console.log('📅 نهاية المسابقة:', new Date(endDate).toISOString());
-        console.log('🕒 الوقت الحالي (UTC):', new Date().toISOString());
+        // طباعة في الـ Console للتأكد
+        console.log('✅ تم تحميل العدادات');
+        console.log('بداية المسابقة:', new Date(startDate));
+        console.log('نهاية المسابقة:', new Date(endDate));
     })();
 </script>
