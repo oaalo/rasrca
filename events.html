@@ -56,7 +56,7 @@
                 <i class="fas fa-arrow-up" style="color:#ffd700;"></i> ترقية استثنائية
             </div>
             <div class="amount" style="color:#ffd700;font-size:1.1rem;">
-                <i class="fas fa-coins"></i> 3,000,000 رسال
+                <i class="fas fa-coins"></i> 3,000,000 ريال
             </div>
             <div style="color:#94a3b8;font-size:0.85rem;margin-top:4px;">
                 <i class="fas fa-star"></i> 10 آلاف خبرة
@@ -71,7 +71,7 @@
                 <i class="fas fa-arrow-up" style="color:#c0c0c0;"></i> تسريع ترقية
             </div>
             <div class="amount" style="color:#c0c0c0;font-size:1.1rem;">
-                <i class="fas fa-coins"></i> 2,000,000 رسال
+                <i class="fas fa-coins"></i> 2,000,000 ريال
             </div>
             <div style="color:#94a3b8;font-size:0.85rem;margin-top:4px;">
                 <i class="fas fa-star"></i> 5 آلاف خبرة
@@ -86,7 +86,7 @@
                 <i class="fas fa-arrow-up" style="color:#cd7f32;"></i> تسريع ترقية
             </div>
             <div class="amount" style="color:#cd7f32;font-size:1.1rem;">
-                <i class="fas fa-coins"></i> 1,000,000 رسال
+                <i class="fas fa-coins"></i> 1,000,000 ريال
             </div>
             <div style="color:#94a3b8;font-size:0.85rem;margin-top:4px;">
                 <i class="fas fa-star"></i> 5 آلاف خبرة
@@ -126,7 +126,7 @@
         </div>
     </div>
 
-    <!-- ===== العدادات التنازلية ===== -->
+    <!-- ===== العدادات التنازلية (معدلة) ===== -->
     <div class="countdown-box">
         <div class="cd-title"><i class="fas fa-hourglass-start"></i> الوقت المتبقي على انطلاق المسابقة</div>
         <div class="cd-numbers" id="startCountdown">
@@ -160,10 +160,10 @@
     </div>
 </div>
 
-<!-- ===== عدادات الفعالية (معدلة) ===== -->
+<!-- ===== عدادات الفعالية (نسخة مستقرة) ===== -->
 <script>
     (function() {
-        // ✅ التواريخ: 2 أغسطس 2026 إلى 7 أغسطس 2026
+        // تعريف التواريخ (2 أغسطس 2026 - 7 أغسطس 2026)
         var startDate = Date.UTC(2026, 7, 2, 0, 0, 0);
         var endDate = Date.UTC(2026, 7, 7, 23, 59, 59);
 
@@ -177,14 +177,12 @@
             var endCd = document.getElementById('endCountdown');
             var endMsg = document.getElementById('endMessage');
 
-            // ----- عداد البداية (يظهر قبل 2 أغسطس) -----
+            // عداد البداية (يظهر قبل 2 أغسطس)
             if (startCd && startMsg) {
                 if (startDistance < 0) {
-                    // انطلقت المسابقة
                     startCd.style.display = 'none';
                     startMsg.style.display = 'block';
                 } else {
-                    // لسى ما انطلقت
                     startCd.style.display = 'flex';
                     startMsg.style.display = 'none';
                     var d = Math.floor(startDistance / (1000 * 60 * 60 * 24));
@@ -199,14 +197,12 @@
                 }
             }
 
-            // ----- عداد النهاية (يظهر من 2 أغسطس إلى 7 أغسطس) -----
+            // عداد النهاية (يظهر من 2 أغسطس إلى 7 أغسطس)
             if (endCd && endMsg) {
                 if (endDistance < 0) {
-                    // انتهت المسابقة
                     endCd.style.display = 'none';
                     endMsg.style.display = 'block';
                 } else {
-                    // لسى ما انتهت
                     endCd.style.display = 'flex';
                     endMsg.style.display = 'none';
                     var d = Math.floor(endDistance / (1000 * 60 * 60 * 24));
@@ -226,6 +222,7 @@
         setInterval(updateCountdowns, 1000);
         updateCountdowns();
 
+        // سجل التواريخ للتأكد
         console.log('📅 بداية المسابقة:', new Date(startDate).toISOString());
         console.log('📅 نهاية المسابقة:', new Date(endDate).toISOString());
         console.log('🕒 الوقت الحالي (UTC):', new Date().toISOString());
