@@ -56,7 +56,7 @@
                 <i class="fas fa-arrow-up" style="color:#ffd700;"></i> ترقية استثنائية
             </div>
             <div class="amount" style="color:#ffd700;font-size:1.1rem;">
-                <i class="fas fa-coins"></i> 3,000,000 ريال
+                <i class="fas fa-coins"></i> 3,000,000 رسال
             </div>
             <div style="color:#94a3b8;font-size:0.85rem;margin-top:4px;">
                 <i class="fas fa-star"></i> 10 آلاف خبرة
@@ -71,7 +71,7 @@
                 <i class="fas fa-arrow-up" style="color:#c0c0c0;"></i> تسريع ترقية
             </div>
             <div class="amount" style="color:#c0c0c0;font-size:1.1rem;">
-                <i class="fas fa-coins"></i> 2,000,000 ريال
+                <i class="fas fa-coins"></i> 2,000,000 رسال
             </div>
             <div style="color:#94a3b8;font-size:0.85rem;margin-top:4px;">
                 <i class="fas fa-star"></i> 5 آلاف خبرة
@@ -86,7 +86,7 @@
                 <i class="fas fa-arrow-up" style="color:#cd7f32;"></i> تسريع ترقية
             </div>
             <div class="amount" style="color:#cd7f32;font-size:1.1rem;">
-                <i class="fas fa-coins"></i> 1,000,000 ريال
+                <i class="fas fa-coins"></i> 1,000,000 رسال
             </div>
             <div style="color:#94a3b8;font-size:0.85rem;margin-top:4px;">
                 <i class="fas fa-star"></i> 5 آلاف خبرة
@@ -126,7 +126,7 @@
         </div>
     </div>
 
-    <!-- ===== العدادات التنازلية (معدلة) ===== -->
+    <!-- ===== العدادات التنازلية ===== -->
     <div class="countdown-box">
         <div class="cd-title"><i class="fas fa-hourglass-start"></i> الوقت المتبقي على انطلاق المسابقة</div>
         <div class="cd-numbers" id="startCountdown">
@@ -160,12 +160,12 @@
     </div>
 </div>
 
-<!-- ===== عدادات الفعالية (بإستخدام Date.UTC + وقت ثابت) ===== -->
+<!-- ===== عدادات الفعالية (معدلة) ===== -->
 <script>
     (function() {
-        // ✅ تعريف التواريخ باستخدام UTC + التأكد من صحة السنة والشهر واليوم
-        var startDate = Date.UTC(2026, 7, 2, 0, 0, 0); // 2 أغسطس 2026
-        var endDate = Date.UTC(2026, 7, 7, 23, 59, 59); // 7 أغسطس 2026
+        // ✅ التواريخ: 2 أغسطس 2026 إلى 7 أغسطس 2026
+        var startDate = Date.UTC(2026, 7, 2, 0, 0, 0);
+        var endDate = Date.UTC(2026, 7, 7, 23, 59, 59);
 
         function updateCountdowns() {
             var now = new Date().getTime();
@@ -177,19 +177,21 @@
             var endCd = document.getElementById('endCountdown');
             var endMsg = document.getElementById('endMessage');
 
-            // ----- عداد البداية -----
+            // ----- عداد البداية (يظهر قبل 2 أغسطس) -----
             if (startCd && startMsg) {
                 if (startDistance < 0) {
+                    // انطلقت المسابقة
                     startCd.style.display = 'none';
                     startMsg.style.display = 'block';
                 } else {
+                    // لسى ما انطلقت
                     startCd.style.display = 'flex';
                     startMsg.style.display = 'none';
                     var d = Math.floor(startDistance / (1000 * 60 * 60 * 24));
                     var h = Math.floor((startDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                     var m = Math.floor((startDistance % (1000 * 60 * 60)) / (1000 * 60));
                     var s = Math.floor((startDistance % (1000 * 60)) / 1000);
-                    startCd.innerHTML = 
+                    startCd.innerHTML =
                         '<span>' + String(d).padStart(2, '0') + ' <span class="label">يوم</span></span>' +
                         '<span>' + String(h).padStart(2, '0') + ' <span class="label">ساعة</span></span>' +
                         '<span>' + String(m).padStart(2, '0') + ' <span class="label">دقيقة</span></span>' +
@@ -197,19 +199,21 @@
                 }
             }
 
-            // ----- عداد النهاية -----
+            // ----- عداد النهاية (يظهر من 2 أغسطس إلى 7 أغسطس) -----
             if (endCd && endMsg) {
                 if (endDistance < 0) {
+                    // انتهت المسابقة
                     endCd.style.display = 'none';
                     endMsg.style.display = 'block';
                 } else {
+                    // لسى ما انتهت
                     endCd.style.display = 'flex';
                     endMsg.style.display = 'none';
                     var d = Math.floor(endDistance / (1000 * 60 * 60 * 24));
                     var h = Math.floor((endDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                     var m = Math.floor((endDistance % (1000 * 60 * 60)) / (1000 * 60));
                     var s = Math.floor((endDistance % (1000 * 60)) / 1000);
-                    endCd.innerHTML = 
+                    endCd.innerHTML =
                         '<span>' + String(d).padStart(2, '0') + ' <span class="label">يوم</span></span>' +
                         '<span>' + String(h).padStart(2, '0') + ' <span class="label">ساعة</span></span>' +
                         '<span>' + String(m).padStart(2, '0') + ' <span class="label">دقيقة</span></span>' +
@@ -220,10 +224,8 @@
 
         // تحديث كل ثانية
         setInterval(updateCountdowns, 1000);
-        // تحديث فوراً
         updateCountdowns();
 
-        // سجل التواريخ في وحدة التحكم للتأكد
         console.log('📅 بداية المسابقة:', new Date(startDate).toISOString());
         console.log('📅 نهاية المسابقة:', new Date(endDate).toISOString());
         console.log('🕒 الوقت الحالي (UTC):', new Date().toISOString());
