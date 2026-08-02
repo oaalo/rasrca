@@ -126,7 +126,7 @@
         </div>
     </div>
 
-    <!-- ===== العدادات التنازلية ===== -->
+    <!-- ===== العدادات التنازلية (معدلة) ===== -->
     <div class="countdown-box">
         <div class="cd-title"><i class="fas fa-hourglass-start"></i> الوقت المتبقي على انطلاق المسابقة</div>
         <div class="cd-numbers" id="startCountdown">
@@ -160,24 +160,30 @@
     </div>
 </div>
 
-<!-- ===== عدادات الفعالية (بتاريخ ثابت) ===== -->
+<!-- ===== عدادات الفعالية (بإستخدام Date.UTC + وقت ثابت) ===== -->
 <script>
     (function() {
-        // ✅ استخدام Date.UTC لتجنب مشاكل المنطقة الزمنية
+        // ✅ تعريف التواريخ باستخدام UTC + التأكد من صحة السنة والشهر واليوم
         var startDate = Date.UTC(2026, 7, 2, 0, 0, 0); // 2 أغسطس 2026
         var endDate = Date.UTC(2026, 7, 7, 23, 59, 59); // 7 أغسطس 2026
 
         function updateCountdowns() {
             var now = new Date().getTime();
             var startDistance = startDate - now;
+            var endDistance = endDate - now;
+
             var startCd = document.getElementById('startCountdown');
             var startMsg = document.getElementById('startMessage');
+            var endCd = document.getElementById('endCountdown');
+            var endMsg = document.getElementById('endMessage');
+
+            // ----- عداد البداية -----
             if (startCd && startMsg) {
-                if (startDistance < 0) { 
-                    startCd.style.display = 'none'; 
-                    startMsg.style.display = 'block'; 
+                if (startDistance < 0) {
+                    startCd.style.display = 'none';
+                    startMsg.style.display = 'block';
                 } else {
-                    startCd.style.display = 'flex'; 
+                    startCd.style.display = 'flex';
                     startMsg.style.display = 'none';
                     var d = Math.floor(startDistance / (1000 * 60 * 60 * 24));
                     var h = Math.floor((startDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -190,15 +196,14 @@
                         '<span>' + String(s).padStart(2, '0') + ' <span class="label">ثانية</span></span>';
                 }
             }
-            var endDistance = endDate - now;
-            var endCd = document.getElementById('endCountdown');
-            var endMsg = document.getElementById('endMessage');
+
+            // ----- عداد النهاية -----
             if (endCd && endMsg) {
-                if (endDistance < 0) { 
-                    endCd.style.display = 'none'; 
-                    endMsg.style.display = 'block'; 
+                if (endDistance < 0) {
+                    endCd.style.display = 'none';
+                    endMsg.style.display = 'block';
                 } else {
-                    endCd.style.display = 'flex'; 
+                    endCd.style.display = 'flex';
                     endMsg.style.display = 'none';
                     var d = Math.floor(endDistance / (1000 * 60 * 60 * 24));
                     var h = Math.floor((endDistance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -213,7 +218,14 @@
             }
         }
 
+        // تحديث كل ثانية
         setInterval(updateCountdowns, 1000);
+        // تحديث فوراً
         updateCountdowns();
+
+        // سجل التواريخ في وحدة التحكم للتأكد
+        console.log('📅 بداية المسابقة:', new Date(startDate).toISOString());
+        console.log('📅 نهاية المسابقة:', new Date(endDate).toISOString());
+        console.log('🕒 الوقت الحالي (UTC):', new Date().toISOString());
     })();
 </script>
