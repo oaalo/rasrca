@@ -291,16 +291,28 @@
             const redirectTo = sessionStorage.getItem('redirectTo');
             if (redirectTo) {
                 sessionStorage.removeItem('redirectTo');
+                // ننتظر حتى تتحمّل الصفحة بالكامل
                 setTimeout(function() {
                     const cards = document.querySelectorAll('.card-vertical');
+                    let found = false;
                     for (let card of cards) {
                         const text = card.textContent.trim();
                         if (text.includes(redirectTo)) {
                             card.click();
+                            found = true;
                             break;
                         }
                     }
-                }, 300);
+                    // إذا لم يتم العثور على البطاقة، نضغط على "منصة الدورات" كحل احتياطي
+                    if (!found && redirectTo.includes('دورات')) {
+                        for (let card of cards) {
+                            if (card.textContent.includes('منصة الدورات')) {
+                                card.click();
+                                break;
+                            }
+                        }
+                    }
+                }, 400);
             }
         })();
 
@@ -442,7 +454,7 @@
             console.log('⏰ عداد الفعاليات يعمل بنجاح!');
         }
 
-        console.log('🚀 الموقع جاهز!');
+        console.log('🚀 الموقع جاهز مع التوجيه التلقائي!');
     </script>
 
 </body>
