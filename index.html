@@ -36,7 +36,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
     <style>
-        /* ===== جميع التنسيقات ===== */
+        /* ===== جميع التنسيقات (نفس الكود الحالي) ===== */
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Tajawal', sans-serif; background: #0b0d10; color: #fff; overflow-x: hidden; scroll-behavior: smooth; }
 
@@ -285,13 +285,13 @@
 
     <script>
         // ============================================================
-        // 1. التوجيه التلقائي عند العودة من المستندات
+        // 0. التوجيه المزدوج (sessionStorage + معامل الرابط)
         // ============================================================
         (function() {
+            // أولاً: نفحص sessionStorage (للتوافق مع الطريقة القديمة)
             const redirectTo = sessionStorage.getItem('redirectTo');
             if (redirectTo) {
                 sessionStorage.removeItem('redirectTo');
-                // ننتظر حتى تتحمّل الصفحة بالكامل
                 setTimeout(function() {
                     const cards = document.querySelectorAll('.card-vertical');
                     let found = false;
@@ -303,7 +303,7 @@
                             break;
                         }
                     }
-                    // إذا لم يتم العثور على البطاقة، نضغط على "منصة الدورات" كحل احتياطي
+                    // حل احتياطي: إذا لم نجد و الكلمة تحتوي "دورات"
                     if (!found && redirectTo.includes('دورات')) {
                         for (let card of cards) {
                             if (card.textContent.includes('منصة الدورات')) {
@@ -313,11 +313,30 @@
                         }
                     }
                 }, 400);
+                return;
+            }
+
+            // ثانياً: نفحص معامل الرابط (section=careers)
+            const urlParams = new URLSearchParams(window.location.search);
+            const section = urlParams.get('section');
+            if (section === 'careers') {
+                // ننتظر قليلاً حتى تتحمّل الصفحة
+                setTimeout(function() {
+                    const cards = document.querySelectorAll('.card-vertical');
+                    for (let card of cards) {
+                        // نبحث عن بطاقة "منصة الدورات" أو "دورات"
+                        if (card.textContent.trim().includes('منصة الدورات') || 
+                            card.textContent.trim().includes('دورات')) {
+                            card.click();
+                            break;
+                        }
+                    }
+                }, 400);
             }
         })();
 
         // ============================================================
-        // 2. الأمواج
+        // 1. الأمواج
         // ============================================================
         const canvas = document.getElementById('waveCanvas');
         const ctx = canvas.getContext('2d');
@@ -355,7 +374,7 @@
         drawWaves();
 
         // ============================================================
-        // 3. ظهور البطاقات
+        // 2. ظهور البطاقات
         // ============================================================
         const cards = document.querySelectorAll('.card-vertical');
         const revealObserver = new IntersectionObserver((entries) => {
@@ -369,7 +388,7 @@
         cards.forEach(card => revealObserver.observe(card));
 
         // ============================================================
-        // 4. تحميل المحتوى الديناميكي
+        // 3. تحميل المحتوى الديناميكي
         // ============================================================
         function loadContent(section) {
             const container = document.getElementById('contentContainer');
@@ -409,7 +428,7 @@
         }
 
         // ============================================================
-        // 5. العودة للرئيسية
+        // 4. العودة للرئيسية
         // ============================================================
         function goHome() {
             document.getElementById('contentContainer').classList.remove('active');
@@ -418,7 +437,7 @@
         }
 
         // ============================================================
-        // 6. ⏰ عداد فعاليات (يعمل بعد تحميل المحتوى)
+        // 5. ⏰ عداد فعاليات (يعمل بعد تحميل المحتوى)
         // ============================================================
         function initEventCountdown() {
             var endDate = new Date('2026-08-07T23:59:59Z').getTime();
@@ -454,7 +473,7 @@
             console.log('⏰ عداد الفعاليات يعمل بنجاح!');
         }
 
-        console.log('🚀 الموقع جاهز مع التوجيه التلقائي!');
+        console.log('🚀 الموقع جاهز مع التوجيه المزدوج (sessionStorage + معامل الرابط)!');
     </script>
 
 </body>
