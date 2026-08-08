@@ -1,7 +1,8 @@
 <div class="content-body">
     <!-- ===== العنوان ===== -->
     <div class="section-header">
-        <h2>🎯 مسابقة أفضل مسعف</h2>
+        <span class="icon-big">🏆</span>
+        <h2>🏆 مسابقة أفضل مسعف</h2>
     </div>
     <div class="section-desc" style="color: #e2e8f0; line-height: 2; font-weight: 600; text-shadow: 0 2px 10px rgba(0,0,0,0.5);">
         🔶 المبادرات والفعاليات القادمة
@@ -52,7 +53,7 @@
             <span style="font-size:2rem;display:block;">🥇</span>
             <div class="label" style="color:#ffd700;font-weight:900;">المركز الأول</div>
             <div class="title" style="font-size:0.95rem;margin-top:8px;">
-                <i class="fas fa-car" style="color:#ffd700;"></i> مركبة متجر من اختيار هيئة الإشراف
+                <i class="fas fa-car" style="color:#ffd700;"></i> مركبة متجر من إختيار هيئة الإشراف
             </div>
             <div class="amount" style="color:#ffd700;font-size:1.1rem;">
                 <i class="fas fa-coins"></i> 1,500,000 ريال
@@ -67,7 +68,10 @@
             <span style="font-size:2rem;display:block;">🥈</span>
             <div class="label" style="color:#c0c0c0;font-weight:900;">المركز الثاني</div>
             <div class="title" style="font-size:0.95rem;margin-top:8px;">
-                <i class="fas fa-trophy" style="color:#c0c0c0;"></i> راعي فضي + تسريع ترقية
+                <i class="fas fa-star" style="color:#c0c0c0;"></i> راعي فضي
+            </div>
+            <div class="title" style="font-size:0.85rem;margin-top:4px;color:#94a3b8;">
+                <i class="fas fa-arrow-up"></i> تسريع ترقية
             </div>
             <div class="amount" style="color:#c0c0c0;font-size:1.1rem;">
                 <i class="fas fa-coins"></i> 1,000,000 ريال
@@ -82,7 +86,10 @@
             <span style="font-size:2rem;display:block;">🥉</span>
             <div class="label" style="color:#cd7f32;font-weight:900;">المركز الثالث</div>
             <div class="title" style="font-size:0.95rem;margin-top:8px;">
-                <i class="fas fa-trophy" style="color:#cd7f32;"></i> راعي برونزي + تسريع ترقية
+                <i class="fas fa-star" style="color:#cd7f32;"></i> راعي برونزي
+            </div>
+            <div class="title" style="font-size:0.85rem;margin-top:4px;color:#94a3b8;">
+                <i class="fas fa-arrow-up"></i> تسريع ترقية
             </div>
             <div class="amount" style="color:#cd7f32;font-size:1.1rem;">
                 <i class="fas fa-coins"></i> 950,000 ريال
@@ -125,7 +132,7 @@
         </div>
     </div>
 
-    <!-- ===== عداد بسيط ===== -->
+    <!-- ===== عداد ===== -->
     <div style="background:rgba(0,0,0,0.3);border-radius:16px;padding:20px;text-align:center;border:1px solid rgba(230,57,70,0.08);margin:15px 0;">
         <div style="color:#94a3b8;font-size:0.85rem;font-weight:500;letter-spacing:1px;padding-top:4px;">
             <i class="fas fa-hourglass-half"></i> الوقت المتبقي على نهاية المسابقة
@@ -138,11 +145,7 @@
     <!-- ===== إعتماد ===== -->
     <div style="text-align:center;margin-top:20px;color:#94a3b8;border-top:1px solid rgba(230,57,70,0.08);padding-top:20px;">
         <p style="color:#94a3b8;font-size:0.9rem;">
-            <i class="fas fa-check-circle" style="color:#4ade80;"></i> إعتماد /
-            <span style="color:#ff6b6b;font-weight:700;">|| <@805293264642768896> ||</span>
-            <span style="color:#ff6b6b;font-weight:700;margin-right:10px;">|| <@260494075835187200> ||</span>
-            <br>
-            <span style="color:#ff6b6b;font-weight:700;font-size:0.85rem;"><@&1305901160028442635></span>
+            <i class="fas fa-check-circle" style="color:#4ade80;"></i> إعتماد / هيئة الإشراف وقيادة الهلال الأحمر
         </p>
         <p style="color:#64748b;font-size:0.8rem;margin-top:5px;">
             <i class="fas fa-crown"></i> © 2026 جهاد 511 – <a href="https://discord.gg/RAS" target="_blank" style="color:#ff6b6b;text-decoration:none;">الهلال الأحمر لمحافظة الرس</a>
@@ -150,10 +153,10 @@
     </div>
 </div>
 
-<!-- ===== سكريبت عداد بسيط (يعمل على GitHub) ===== -->
+<!-- ===== سكريبت العداد (يعمل مباشرة) ===== -->
 <script>
     (function() {
-        // تاريخ النهاية: 13 أغسطس 2026 الساعة 23:59:59
+        // تاريخ نهاية المسابقة: 13 أغسطس 2026 الساعة 11:59:59 مساءً
         var endDate = new Date('2026-08-13T23:59:59Z').getTime();
 
         function updateTimer() {
@@ -181,9 +184,10 @@
                 String(seconds).padStart(2, '0');
         }
 
+        // تحديث كل ثانية
         setInterval(updateTimer, 1000);
         updateTimer();
 
-        console.log('⏰ عداد فعاليات المسابقة يعمل بنجاح!');
+        console.log('⏰ عداد الفعاليات يعمل بنجاح (بتاريخ 13 أغسطس 2026)!');
     })();
 </script>
