@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>دورة الدعم الجوي - الهلال الأحمر</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: #0b0d10;
+            color: #e2e8f0;
+            padding: 2rem;
+            direction: rtl;
+            line-height: 2;
+        }
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            background: rgba(255,255,255,0.03);
+            border-radius: 24px;
+            padding: 2.5rem;
+            border: 1px solid rgba(230,57,70,0.08);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: 700;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .back-link:hover { color: #e63946; }
+        h1 {
+            color: #f5d742;
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(230,57,70,0.15);
+            padding-bottom: 0.8rem;
+        }
+        h2 {
+            color: #ff6b6b;
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin: 1.8rem 0 0.8rem;
+            border-right: 4px solid #e63946;
+            padding-right: 15px;
+        }
+        h3 {
+            color: #f5d742;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin: 1.5rem 0 0.5rem;
+        }
+        ul { list-style: none; padding: 0; }
+        ul li {
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        ul li::before {
+            content: "▸";
+            color: #ff6b6b;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        .note {
+            background: rgba(230,57,70,0.06);
+            padding: 15px 18px;
+            border-radius: 12px;
+            border-right: 3px solid #e63946;
+            margin: 1.5rem 0;
+            color: #cbd5e1;
+        }
+        .note i { color: #ff6b6b; margin-left: 8px; }
+        .warning-note {
+            background: rgba(230,57,70,0.1);
+            padding: 15px 18px;
+            border-radius: 12px;
+            border-right: 3px solid #f5d742;
+            margin: 1.5rem 0;
+            color: #f5d742;
+        }
+        .warning-note i { color: #f5d742; margin-left: 8px; }
+        .footer {
+            text-align: center;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+        .footer a { color: #ff6b6b; text-decoration: none; }
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            .container { padding: 1.5rem; }
+            h1 { font-size: 1.8rem; }
+            h2 { font-size: 1.3rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link" onclick="window.goHome();">
+            <i class="fas fa-arrow-right"></i> العودة للدورات
+        </a>
+        <h1>🚁 دورة الدعم الجوي</h1>
+        <p style="color:#94a3b8;margin-bottom:1.5rem;">دورة ميدانية متكاملة للدعم الجوي في الهلال الأحمر</p>
+
+        <!-- ===== مقدمة ===== -->
+        <h2>📌 تعريف الدعم الجوي</h2>
+        <p style="color:#cbd5e1;">
+            الدعم الجوي هو وحدة متخصصة في الهلال الأحمر تهدف إلى تقديم الإسعافات الأولية والإنعاش من خلال الطائرات العمودية (الهليكوبتر) في المناطق التي يصعب الوصول إليها براً، أو في الحالات التي تتطلب سرعة فائقة في الاستجابة للبلاغات الحرجة.
+        </p>
+
+        <!-- ===== التردد الخاص بالدعم الجوي ===== -->
+        <h2>📡 التردد الخاص بالدعم الجوي</h2>
+        <div class="note">
+            <i class="fas fa-radio" style="color:#ff6b6b;"></i>
+            <strong>موجة الدعم الجوي للهلال الأحمر:</strong> 15
+            <br><br>
+            <span style="color:#94a3b8;font-size:0.9rem;">يتم التواصل عبر هذه الموجة لتنسيق عمليات الإنزال الجوي، واستقبال البلاغات من مركز العمليات، والتواصل مع الفرق الميدانية.</span>
+        </div>
+
+        <!-- ===== شروط التقديم (تم رفعها للأعلى) ===== -->
+        <h2>📋 شروط التقديم</h2>
+        <ul>
+            <li><strong>اجتياز دورة العمليات أو دورة المشرفين بنجاح:</strong> يجب أن يكون المتقدم قد أكمل إحدى الدورات الأساسية بنجاح لضمان معرفته ببروتوكولات العمل الميداني.</li>
+            <li><strong>خبرة لا تقل عن شهرين في الميدان:</strong> يشترط أن يكون لدى المتقدم خبرة عملية لا تقل عن شهرين في الميدان لضمان فهمه لطبيعة العمل.</li>
+            <li><strong>اجتياز الفحص الطبي والنفسي:</strong> يجب أن يكون المتقدم لائقاً طبياً ونفسياً للعمل في بيئة الطيران، حيث تتطلب المهام الجوية تركيزاً عالياً وقدرة على التعامل مع الضغوط.</li>
+            <li><strong>عدم وجود مخالفات إدارية جسيمة خلال الشهرين الماضيين:</strong> يضمن هذا الشرط أن يكون المتقدم ملتزماً بالقوانين والأنظمة، مما يعزز سلامة الفريق.</li>
+            <li><strong>توصية من المشرف المباشر أو القيادة:</strong> يجب أن يحصل المتقدم على توصية خطية من مشرفه أو القيادة، تؤكد كفاءته واستعداده للانضمام للدعم الجوي.</li>
+        </ul>
+        <div class="note">
+            <i class="fas fa-info-circle"></i>
+            <strong>ملاحظة:</strong> يتم تقديم الطلبات عبر إدارة التدريب والتطوير، ويتم دراسة كل طلب بشكل فردي من قبل اللجنة المختصة.
+        </div>
+
+        <!-- ===== محاور الدورة (مع تفاصيل وتوضيح) ===== -->
+        <h2>🎯 محاور الدورة</h2>
+        <ul>
+            <li>
+                <strong>التعريف بالطائرات العمودية وأنواعها:</strong>
+                يتم في هذا المحور التعريف بأنواع الطائرات العمودية المستخدمة في الإسعاف الجوي، وخصائص كل نوع، وكيفية التعامل معها. يشمل ذلك التعرف على أجزاء الطائرة الأساسية، وأهمية كل جزء في سلامة الطيران.
+            </li>
+            <li>
+                <strong>بروتوكولات الصعود والنزول من الطائرة العمودية:</strong>
+                يتم شرح الإجراءات الصحيحة للصعود والنزول من الطائرة العمودية، مع التركيز على السلامة الشخصية وعدم التسبب في أي خطر على الطائرة أو الفريق. يشمل ذلك التعرف على نقاط الدخول والخروج، والتعامل مع المخاطر المحتملة أثناء الصعود والنزول.
+            </li>
+            <li>
+                <strong>إجراءات السلامة الجوية والتعامل مع حالات الطوارئ الجوية:</strong>
+                يتم تدريب المتقدمين على إجراءات السلامة الأساسية أثناء الطيران، مثل ارتداء معدات السلامة، والتعامل مع حالات الطوارئ الجوية (مثل الأعطال المفاجئة، سوء الأحوال الجوية، أو حالات الهبوط الاضطراري). يشمل المحور أيضاً تدريبات عملية على كيفية التصرف في هذه الحالات.
+            </li>
+            <li>
+                <strong>التنسيق مع مركز العمليات والفرق الميدانية:</strong>
+                يتم شرح كيفية التنسيق مع مركز العمليات لاستلام البلاغات وتوجيه الطائرات إلى الموقع المناسب. كما يتم تدريب المتقدمين على التواصل الفعال مع الفرق الميدانية لتحديد نقاط الهبوط والإقلاع، وتنظيم عملية الإنزال الجوي.
+            </li>
+            <li>
+                <strong>أنظمة التوزيع الجوي واستخدام موجات الراديو:</strong>
+                يتم تعريف المتقدمين بنظام التوزيع الجوي المعتمد في الهلال الأحمر، وكيفية استخدام موجات الراديو (خاصة موجة 15) للتواصل مع القيادة والفرق الميدانية. يشمل المحور أيضاً التعرف على الأكواد الجوية وكيفية استخدامها في البلاغات.
+            </li>
+            <li>
+                <strong>الإنزال الجوي في المناطق الوعرة والخطرة:</strong>
+                يتم تدريب المتقدمين على تقنيات الإنزال الجوي في المناطق الوعرة (مثل الجبال، الغابات، أو المناطق الحضرية المزدحمة). يشمل المحور كيفية اختيار موقع الهبوط المناسب، وتأمين المنطقة، والتعامل مع التحديات التي قد تواجه الفريق أثناء الإنزال.
+            </li>
+        </ul>
+        <div class="note">
+            <i class="fas fa-clock"></i>
+            <strong>مدة المحاور:</strong> يتم تغطية هذه المحاور خلال 3 أيام تدريبية ميدانية، مع تطبيقات عملية في كل محور.
+        </div>
+
+        <!-- ===== محظورات الدورة ===== -->
+        <h2>🚫 محظورات الدعم الجوي</h2>
+        <ul>
+            <li><strong>التوجه للطائرة دون إذن مسبق:</strong> ممنوع الصعود إلى الطائرة العمودية دون الحصول على إذن من القيادة أو مركز العمليات.</li>
+            <li><strong>إسقاط معدات من الطائرة:</strong> يمنع إسقاط أي معدات أو أدوات من الطائرة أثناء الطيران.</li>
+            <li><strong>التواصل غير المصرح به:</strong> يمنع استخدام موجات الراديو الخاصة بالدعم الجوي لغير أغراض العمل.</li>
+            <li><strong>التصوير أثناء المهمات:</strong> يمنع التصوير أو التقاط الصور أثناء تنفيذ المهام الجوية.</li>
+            <li><strong>الطيران في ظروف جوية غير مناسبة:</strong> يمنع الإقلاع في حالات العواصف أو الرؤية المنخفضة دون موافقة القيادة.</li>
+            <li><strong>تجاوز الوزن المسموح:</strong> يمنع الصعود بأكثر من الوزن المحدد للطائرة العمودية.</li>
+            <li><strong>إهمال إجراءات السلامة:</strong> يمنع إهمال ارتداء معدات السلامة أو تجاهل تعليمات الطيار.</li>
+        </ul>
+
+        <!-- ===== تعليمات مهمة ===== -->
+        <h2>⚠️ تعليمات مهمة</h2>
+        <div class="warning-note">
+            <i class="fas fa-exclamation-triangle"></i>
+            <strong>تنبيهات هامة:</strong>
+            <ul style="margin-top:10px;list-style:none;padding:0;">
+                <li style="padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;align-items:flex-start;gap:10px;">
+                    <span style="color:#ff6b6b;">▸</span> يجب على جميع أفراد الدعم الجوي حفظ تردد موجة الدعم الجوي (15) عن ظهر قلب.
+                </li>
+                <li style="padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;align-items:flex-start;gap:10px;">
+                    <span style="color:#ff6b6b;">▸</span> يتم التدريب الميداني تحت إشراف مباشر من القيادة والمشرفين.
+                </li>
+                <li style="padding:4px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;align-items:flex-start;gap:10px;">
+                    <span style="color:#ff6b6b;">▸</span> الدورة تعتبر ميدانية بالكامل، ويتم التقييم في الميدان بناءً على الأداء الفعلي.
+                </li>
+                <li style="padding:4px 0;display:flex;align-items:flex-start;gap:10px;">
+                    <span style="color:#ff6b6b;">▸</span> في حال مخالفة أي من المحظورات، يتعرض الفرد لعقوبات تصل إلى الفصل من الدعم الجوي ومنعه من التقدم له مرة أخرى.
+                </li>
+            </ul>
+        </div>
+
+        <!-- ===== خريطة التوزيع الجوي ===== -->
+        <h2>🗺️ نظام التوزيع الجوي</h2>
+        <p style="color:#cbd5e1;">
+            يتم توزيع وحدات الدعم الجوي حسب المناطق التالية:
+        </p>
+        <ul>
+            <li><strong>منطقة لوس سانتوس:</strong> يبدأ التوزيع من جوي 11 إلى جوي 19</li>
+            <li><strong>منطقة ساندي وبوليتو:</strong> يبدأ التوزيع من جوي 21 إلى جوي 29</li>
+        </ul>
+        <div class="note">
+            <i class="fas fa-info-circle"></i>
+            <strong>ملاحظة:</strong> يتم تحديد التوزيع الجوي من قبل مركز العمليات بالتنسيق مع قائد الدعم الجوي.
+        </div>
+
+        <!-- ===== مدة الدورة ===== -->
+        <h2>📅 مدة الدورة</h2>
+        <ul>
+            <li>مدة الدورة: <strong>3 أيام تدريبية</strong> في الميدان</li>
+            <li>يتم التدريب بشكل عملي تحت إشراف المدربين المعتمدين</li>
+            <li>يتم تقييم الأداء في نهاية الدورة من قبل القيادة</li>
+        </ul>
+
+        <!-- ===== متطلبات اجتياز الدورة ===== -->
+        <h2>📝 متطلبات اجتياز الدورة</h2>
+        <ul>
+            <li>حضور 100% من أيام الدورة</li>
+            <li>التقييم العملي من قبل المدربين</li>
+            <li>اجتياز اختبار الطيران العملي</li>
+            <li>الحصول على توصية من القيادة</li>
+        </ul>
+
+        <div class="footer">
+            <p><i class="fas fa-crown"></i> © 2026 جهاد 511 – <a href="https://discord.gg/RAS" target="_blank">الهلال الأحمر لمحافظة الرس</a></p>
+            <p style="font-size:0.8rem;color:#64748b;margin-top:5px;">إعداد إدارة الهلال الأحمر وكريم المغربي</p>
+        </div>
+    </div>
+</body>
+</html>
