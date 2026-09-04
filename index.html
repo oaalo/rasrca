@@ -86,32 +86,6 @@
             pointer-events: none;
         }
 
-        /* ===== الشعار ===== */
-        .site-logo {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            z-index: 999;
-            width: 90px;
-            height: 90px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 3px solid rgba(230, 57, 70, 0.5);
-            box-shadow: 0 0 40px rgba(230, 57, 70, 0.25);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .site-logo:hover {
-            transform: scale(1.08);
-            border-color: #ff6b6b;
-            box-shadow: 0 0 60px rgba(230, 57, 70, 0.4);
-        }
-        .site-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
         /* ===== شريط التنقل ===== */
         .navbar {
             position: relative;
@@ -119,7 +93,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 1rem 2rem;
+            padding: 0.8rem 2rem;
             background: rgba(11, 13, 16, 0.7);
             backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(255, 215, 0, 0.06);
@@ -131,6 +105,19 @@
             font-size: 1.2rem;
             font-weight: 800;
             color: #f9a825;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .navbar .logo:hover {
+            opacity: 0.85;
+            transform: scale(1.02);
+        }
+        .navbar .logo img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: 2px solid rgba(230, 57, 70, 0.4);
+            object-fit: cover;
         }
         .navbar .logo span {
             display: none;
@@ -168,20 +155,8 @@
         .navbar .nav-links a:hover::after {
             width: 100%;
         }
-        .navbar .discord-btn {
-            background: linear-gradient(145deg, #c62828, #b71c1c);
-            color: #fff;
-            padding: 0.4rem 1.2rem;
-            border-radius: 40px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            transition: 0.3s;
-            border: 1px solid rgba(255, 215, 0, 0.1);
-        }
-        .navbar .discord-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(198, 40, 40, 0.25);
-        }
+
+        /* ===== تم حذف زر "انضم الآن" ===== */
 
         /* ===== الهيرو ===== */
         .hero {
@@ -554,11 +529,9 @@
             .grid-2col {
                 grid-template-columns: 1fr;
             }
-            .site-logo {
-                width: 60px;
-                height: 60px;
-                top: 12px;
-                left: 12px;
+            .navbar .logo img {
+                width: 35px;
+                height: 35px;
             }
         }
         @media (max-width: 480px) {
@@ -571,11 +544,9 @@
             .navbar .logo {
                 font-size: 1rem;
             }
-            .site-logo {
-                width: 50px;
-                height: 50px;
-                top: 10px;
-                left: 10px;
+            .navbar .logo img {
+                width: 30px;
+                height: 30px;
             }
         }
 
@@ -602,16 +573,12 @@
         <canvas id="waveCanvas"></canvas>
     </div>
 
-    <!-- ===== الشعار ===== -->
-    <a href="https://discord.gg/RAS" target="_blank" class="site-logo">
-        <img src="https://oaalo.github.io/rasrca/image.png?v=2" alt="شعار الهلال الأحمر" />
-    </a>
-
-    <!-- ===== شريط التنقل ===== -->
+    <!-- ===== شريط التنقل (الشعار رابط للسيرفر) ===== -->
     <nav class="navbar">
-        <div class="logo">
+        <a href="https://discord.gg/RAS" target="_blank" class="logo">
+            <img src="https://oaalo.github.io/rasrca/image.png?v=2" alt="شعار الهلال الأحمر" />
             <span>الأكاديمية الذكية</span>
-        </div>
+        </a>
         <div class="nav-links">
             <a href="#" onclick="scrollToHome()">الرئيسية</a>
             <a href="#" onclick="loadContent('laws')">القوانين</a>
@@ -619,9 +586,6 @@
             <a href="#" onclick="loadContent('careers')">الدورات</a>
             <a href="#" onclick="loadContent('rewards')">المكافآت</a>
         </div>
-        <a href="https://discord.gg/RAS" target="_blank" class="discord-btn">
-            <i class="fab fa-discord"></i> انضم الآن
-        </a>
     </nav>
 
     <!-- ===== الهيرو ===== -->
@@ -791,7 +755,7 @@
             observer.observe(card);
         });
 
-        console.log('🚀 الموقع يعمل بالتصميم الجديد!');
+        console.log('🚀 الشعار مرتبط بسيرفر الديسكورد!');
     </script>
 
 </body>
