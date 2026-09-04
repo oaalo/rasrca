@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
     <style>
+        /* ===== RESET & BASE ===== */
         * {
             margin: 0;
             padding: 0;
@@ -21,8 +22,8 @@
         }
         body {
             font-family: 'Tajawal', sans-serif;
-            background: #0b0d10;
-            color: #fff;
+            background: #0d0d0d;
+            color: #f5f5f5;
             overflow-x: hidden;
             scroll-behavior: smooth;
         }
@@ -34,7 +35,7 @@
             list-style: none;
         }
 
-        /* ===== الخلفية الثابتة ===== */
+        /* ===== الخلفية الثابتة (ملوّنة حسب الهوية) ===== */
         #fixed-bg {
             position: fixed;
             top: 0;
@@ -51,11 +52,13 @@
             width: 100%;
             height: 100%;
             background:
-                radial-gradient(ellipse at center, rgba(11, 13, 16, 0.3) 0%, rgba(11, 13, 16, 0.85) 100%),
-                url('https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            background-blend-mode: overlay;
+                /* توهج ذهبي في الأعلى */
+                radial-gradient(ellipse at 70% 10%, rgba(249, 168, 37, 0.20) 0%, transparent 50%),
+                /* توهج أحمر في الأسفل */
+                radial-gradient(ellipse at 30% 90%, rgba(198, 40, 40, 0.35) 0%, transparent 55%),
+                /* خلفية سوداء داكنة مع لمسة حمراء */
+                linear-gradient(145deg, #0d0d0d 0%, #1a0808 40%, #0d0d0d 100%);
+            background-blend-mode: normal;
         }
         .bg-glow {
             position: absolute;
@@ -63,17 +66,17 @@
             right: -10%;
             width: 70%;
             height: 80%;
-            background: radial-gradient(circle, rgba(230, 57, 70, 0.25) 0%, rgba(230, 57, 70, 0.05) 40%, transparent 70%);
+            background: radial-gradient(circle, rgba(198, 40, 40, 0.15) 0%, rgba(198, 40, 40, 0.02) 40%, transparent 70%);
             filter: blur(80px);
             animation: pulseGlow 6s ease-in-out infinite alternate;
         }
         @keyframes pulseGlow {
             0% {
-                opacity: 0.5;
+                opacity: 0.4;
                 transform: scale(1);
             }
             100% {
-                opacity: 1;
+                opacity: 0.9;
                 transform: scale(1.15);
             }
         }
@@ -86,60 +89,79 @@
             pointer-events: none;
         }
 
-        /* ===== شريط التنقل ===== */
+        /* ===== شريط التنقل الجديد (يسار - وسط - يمين) ===== */
         .navbar {
             position: relative;
             z-index: 10;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.8rem 2rem;
-            background: rgba(11, 13, 16, 0.7);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.06);
+            padding: 0.7rem 2rem;
+            background: rgba(13, 13, 13, 0.75);
+            backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(249, 168, 37, 0.06);
+            gap: 0.5rem;
+            flex-wrap: wrap;
         }
-        .navbar .logo {
+
+        /* الجانب الأيسر: زر ji فقط */
+        .navbar-left {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
-            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        /* زر ji */
+        .ji-btn {
+            background: transparent;
+            border: none;
+            color: #f5f5f5;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.95rem;
             font-weight: 800;
-            color: #f9a825;
+            padding: 0.2rem 0.6rem;
             cursor: pointer;
             transition: 0.3s;
+            border-radius: 6px;
+            letter-spacing: 0.5px;
         }
-        .navbar .logo:hover {
-            opacity: 0.85;
-            transform: scale(1.02);
+        .ji-btn::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: #f9a825;
+            transition: 0.3s;
         }
-        .navbar .logo img {
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            border: 2px solid rgba(230, 57, 70, 0.4);
-            object-fit: cover;
+        .ji-btn:hover {
+            color: #f9a825;
         }
-        .navbar .logo span {
-            display: none;
+        .ji-btn i {
+            margin-left: 4px;
+            font-size: 0.8rem;
+            color: #c62828;
         }
-        @media (min-width: 768px) {
-            .navbar .logo span {
-                display: inline;
-            }
-        }
-        .navbar .nav-links {
+
+        /* الروابط في المنتصف */
+        .nav-links {
             display: flex;
             align-items: center;
+            justify-content: center;
             gap: 1.2rem;
+            flex: 1 1 auto;
+            flex-wrap: wrap;
         }
-        .navbar .nav-links a {
+        .nav-links a {
             color: #b0b0b0;
             font-size: 0.9rem;
             font-weight: 500;
             transition: 0.3s;
             position: relative;
+            white-space: nowrap;
         }
-        .navbar .nav-links a::after {
+        .nav-links a::after {
             content: '';
             position: absolute;
             bottom: -4px;
@@ -149,14 +171,47 @@
             background: #f9a825;
             transition: 0.3s;
         }
-        .navbar .nav-links a:hover {
-            color: #fff;
+        .nav-links a:hover {
+            color: #f5f5f5;
         }
-        .navbar .nav-links a:hover::after {
+        .nav-links a:hover::after {
             width: 100%;
         }
 
-        /* ===== تم حذف زر "انضم الآن" ===== */
+        /* الجانب الأيمن: الشعار + النص (رابط للسيرفر) */
+        .navbar-right {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-size: 1rem;
+            font-weight: 800;
+            color: #f9a825;
+            transition: 0.3s;
+        }
+        .logo:hover {
+            opacity: 0.85;
+            transform: scale(1.02);
+        }
+        .logo img {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 2px solid rgba(198, 40, 40, 0.4);
+            object-fit: cover;
+        }
+        .logo .brand-text {
+            display: inline;
+        }
+        @media (max-width: 768px) {
+            .logo .brand-text {
+                display: none;
+            }
+        }
 
         /* ===== الهيرو ===== */
         .hero {
@@ -172,11 +227,11 @@
         }
         .hero .badge {
             background: rgba(198, 40, 40, 0.15);
-            border: 1px solid rgba(198, 40, 40, 0.3);
+            border: 1px solid rgba(198, 40, 40, 0.30);
             padding: 0.3rem 1.5rem;
             border-radius: 60px;
             font-size: 0.8rem;
-            color: #ff6b6b;
+            color: #e63946;
             letter-spacing: 1px;
             backdrop-filter: blur(4px);
             margin-bottom: 1.5rem;
@@ -243,7 +298,7 @@
         .section-card {
             background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 215, 0, 0.06);
+            border: 1px solid rgba(249, 168, 37, 0.06);
             border-radius: 24px;
             padding: 1.8rem 1.2rem;
             text-align: center;
@@ -258,13 +313,13 @@
             animation-delay: 0.05s;
         }
         .section-card:nth-child(2) {
-            animation-delay: 0.1s;
+            animation-delay: 0.10s;
         }
         .section-card:nth-child(3) {
             animation-delay: 0.15s;
         }
         .section-card:nth-child(4) {
-            animation-delay: 0.2s;
+            animation-delay: 0.20s;
         }
         @keyframes fadeUp {
             to {
@@ -274,7 +329,7 @@
         }
         .section-card:hover {
             transform: translateY(-6px);
-            border-color: rgba(255, 215, 0, 0.15);
+            border-color: rgba(249, 168, 37, 0.15);
             box-shadow: 0 15px 40px rgba(198, 40, 40, 0.06);
             background: rgba(255, 255, 255, 0.07);
         }
@@ -349,7 +404,7 @@
         .content-card {
             background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 215, 0, 0.08);
+            border: 1px solid rgba(249, 168, 37, 0.08);
             border-radius: 28px;
             padding: 2.5rem;
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
@@ -364,7 +419,7 @@
         }
         .item-card {
             background: rgba(20, 16, 14, 0.75);
-            border: 1px solid rgba(230, 57, 70, 0.12);
+            border: 1px solid rgba(198, 40, 40, 0.12);
             border-radius: 16px;
             padding: 16px 18px;
             transition: 0.3s;
@@ -373,8 +428,8 @@
         }
         .item-card:hover {
             transform: translateY(-4px);
-            border-color: rgba(230, 57, 70, 0.3);
-            box-shadow: 0 10px 25px rgba(230, 57, 70, 0.06);
+            border-color: rgba(198, 40, 40, 0.30);
+            box-shadow: 0 10px 25px rgba(198, 40, 40, 0.06);
             background: rgba(30, 24, 20, 0.85);
         }
         .item-card::before {
@@ -384,13 +439,13 @@
             right: 0;
             width: 3px;
             height: 100%;
-            background: linear-gradient(180deg, #e63946, #ff6b6b, #e63946);
+            background: linear-gradient(180deg, #c62828, #e63946, #c62828);
             border-radius: 0 3px 3px 0;
             opacity: 0.5;
         }
         .item-card .red-badge {
             display: inline-block;
-            background: linear-gradient(145deg, #e63946, #c62828);
+            background: linear-gradient(145deg, #c62828, #b71c1c);
             color: #fff;
             font-weight: 800;
             font-size: 0.7rem;
@@ -404,12 +459,12 @@
             margin-top: 4px;
         }
         .item-card .amount {
-            color: #ff6b6b;
+            color: #e63946;
             font-size: 1.2rem;
             font-weight: 900;
             margin-top: 6px;
             padding-top: 6px;
-            border-top: 1px dashed rgba(230, 57, 70, 0.12);
+            border-top: 1px dashed rgba(198, 40, 40, 0.12);
         }
         .item-card .note {
             color: #94a3b8;
@@ -421,7 +476,7 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            color: #ff6b6b;
+            color: #e63946;
             font-weight: 700;
             text-decoration: none;
             padding: 8px 0;
@@ -429,14 +484,14 @@
             transition: 0.3s;
         }
         .external-link:hover {
-            color: #e63946;
-            border-bottom-color: #e63946;
+            color: #c62828;
+            border-bottom-color: #c62828;
         }
         .btn-red {
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            background: linear-gradient(145deg, #e63946, #c62828);
+            background: linear-gradient(145deg, #c62828, #b71c1c);
             color: #fff !important;
             font-weight: 800;
             padding: 8px 20px;
@@ -445,12 +500,155 @@
             transition: 0.3s;
             border: none;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.1);
+            box-shadow: 0 4px 15px rgba(198, 40, 40, 0.10);
         }
         .btn-red:hover {
             transform: scale(1.03);
-            box-shadow: 0 6px 20px rgba(230, 57, 70, 0.2);
-            background: linear-gradient(145deg, #ff6b6b, #e63946);
+            box-shadow: 0 6px 20px rgba(198, 40, 40, 0.20);
+            background: linear-gradient(145deg, #e63946, #c62828);
+        }
+
+        /* ===== مودال الديسكورد ===== */
+        .discord-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        .discord-modal-overlay.show {
+            display: flex;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        .discord-modal {
+            background: #1a1a1a;
+            border: 1px solid rgba(249, 168, 37, 0.15);
+            border-radius: 28px;
+            padding: 2.5rem 2.8rem;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6);
+            animation: scaleUp 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+            position: relative;
+        }
+        @keyframes scaleUp {
+            from {
+                transform: scale(0.85);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+        .discord-modal .modal-close {
+            position: absolute;
+            top: 12px;
+            left: 18px;
+            background: none;
+            border: none;
+            color: #8a8a8a;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Tajawal', sans-serif;
+        }
+        .discord-modal .modal-close:hover {
+            color: #e63946;
+            transform: rotate(90deg);
+        }
+        .discord-modal .discord-icon {
+            font-size: 4rem;
+            color: #5865f2;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .discord-modal h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #f5f5f5;
+            margin-bottom: 0.2rem;
+        }
+        .discord-modal .discord-username {
+            color: #f9a825;
+            font-size: 1.2rem;
+            font-weight: 700;
+            direction: ltr;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            display: inline-block;
+            margin: 0.3rem 0 0.8rem;
+            border: 1px solid rgba(249, 168, 37, 0.10);
+        }
+        .discord-modal .discord-id {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            direction: ltr;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 0.25rem 0.8rem;
+            border-radius: 20px;
+            display: inline-block;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+        }
+        .discord-modal .copy-btn {
+            margin-top: 1.2rem;
+            background: linear-gradient(145deg, #5865f2, #4752c4);
+            color: #fff;
+            border: none;
+            padding: 0.6rem 2rem;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Tajawal', sans-serif;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .discord-modal .copy-btn:hover {
+            transform: scale(1.04);
+            box-shadow: 0 8px 25px rgba(88, 101, 242, 0.25);
+        }
+        .discord-modal .copy-feedback {
+            color: #4ade80;
+            font-size: 0.8rem;
+            margin-top: 0.5rem;
+            opacity: 0;
+            transition: 0.3s;
+        }
+        .discord-modal .copy-feedback.show {
+            opacity: 1;
+        }
+        .discord-modal .modal-footer {
+            margin-top: 1rem;
+            font-size: 0.7rem;
+            color: #64748b;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            padding-top: 1rem;
+        }
+        .discord-modal .modal-footer a {
+            color: #f9a825;
+            text-decoration: none;
+        }
+        .discord-modal .modal-footer a:hover {
+            text-decoration: underline;
         }
 
         /* ===== الفوتر ===== */
@@ -464,11 +662,11 @@
             font-size: 0.85rem;
         }
         .footer a {
-            color: #ff6b6b;
+            color: #e63946;
             text-decoration: none;
         }
         .footer a:hover {
-            color: #e63946;
+            color: #c62828;
             text-decoration: underline;
         }
 
@@ -493,19 +691,31 @@
             }
         }
 
+        /* ===== استجابة ===== */
         @media (max-width: 768px) {
             .navbar {
-                flex-wrap: wrap;
                 padding: 0.6rem 1rem;
                 gap: 0.4rem;
-            }
-            .navbar .nav-links {
-                gap: 0.8rem;
-                flex-wrap: wrap;
                 justify-content: center;
             }
-            .navbar .nav-links a {
+            .nav-links {
+                order: 3;
+                flex-basis: 100%;
+                gap: 0.7rem;
+                margin-top: 0.2rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.03);
+                padding-top: 0.5rem;
+            }
+            .nav-links a {
+                font-size: 0.75rem;
+            }
+            .ji-btn {
                 font-size: 0.8rem;
+                padding: 0.1rem 0.4rem;
+            }
+            .logo img {
+                width: 30px;
+                height: 30px;
             }
             .hero h1 {
                 font-size: 2.2rem;
@@ -529,9 +739,8 @@
             .grid-2col {
                 grid-template-columns: 1fr;
             }
-            .navbar .logo img {
-                width: 35px;
-                height: 35px;
+            .discord-modal {
+                padding: 2rem 1.5rem;
             }
         }
         @media (max-width: 480px) {
@@ -541,26 +750,19 @@
             .hero h1 {
                 font-size: 1.8rem;
             }
-            .navbar .logo {
-                font-size: 1rem;
+            .nav-links a {
+                font-size: 0.7rem;
             }
-            .navbar .logo img {
-                width: 30px;
-                height: 30px;
+            .nav-links {
+                gap: 0.5rem;
             }
-        }
-
-        #homepage {
-            display: block;
-        }
-        #homepage.hidden {
-            display: none;
-        }
-        .content-page {
-            display: none;
-        }
-        .content-page.active {
-            display: block;
+            .logo img {
+                width: 26px;
+                height: 26px;
+            }
+            .ji-btn {
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
@@ -573,18 +775,30 @@
         <canvas id="waveCanvas"></canvas>
     </div>
 
-    <!-- ===== شريط التنقل (الشعار رابط للسيرفر) ===== -->
+    <!-- ===== شريط التنقل الجديد ===== -->
     <nav class="navbar">
-        <a href="https://discord.gg/RAS" target="_blank" class="logo">
-            <img src="https://oaalo.github.io/rasrca/image.png?v=2" alt="شعار الهلال الأحمر" />
-            <span>الأكاديمية الذكية</span>
-        </a>
+        <!-- الجانب الأيسر: زر ji فقط -->
+        <div class="navbar-left">
+            <button class="ji-btn" onclick="openDiscordModal()">
+                ji<i class="fas fa-copyright"></i>
+            </button>
+        </div>
+
+        <!-- المنتصف: قائمة الروابط -->
         <div class="nav-links">
             <a href="#" onclick="scrollToHome()">الرئيسية</a>
             <a href="#" onclick="loadContent('laws')">القوانين</a>
             <a href="#" onclick="loadContent('job')">التوظيف</a>
             <a href="#" onclick="loadContent('careers')">الدورات</a>
             <a href="#" onclick="loadContent('rewards')">المكافآت</a>
+        </div>
+
+        <!-- الجانب الأيمن: الشعار + النص (رابط للسيرفر) -->
+        <div class="navbar-right">
+            <a href="https://discord.gg/RAS" target="_blank" class="logo">
+                <img src="https://oaalo.github.io/rasrca/image.png?v=2" alt="شعار الهلال الأحمر" />
+                <span class="brand-text">الأكاديمية الذكية</span>
+            </a>
         </div>
     </nav>
 
@@ -639,6 +853,26 @@
         </div>
     </div>
 
+    <!-- ===== مودال الديسكورد ===== -->
+    <div class="discord-modal-overlay" id="discordModal" onclick="if(event.target===this) closeDiscordModal()">
+        <div class="discord-modal">
+            <button class="modal-close" onclick="closeDiscordModal()">✕</button>
+            <span class="discord-icon"><i class="fab fa-discord"></i></span>
+            <h2>حسابي على ديسكورد</h2>
+            <div class="discord-username">.ji.</div>
+            <div class="discord-id">🆔 408308082402131969</div>
+            <button class="copy-btn" onclick="copyDiscordId()">
+                <i class="fas fa-copy"></i> نسخ المعرف
+            </button>
+            <div class="copy-feedback" id="copyFeedback">✅ تم النسخ!</div>
+            <div class="modal-footer">
+                <a href="https://discord.com/users/408308082402131969" target="_blank">
+                    <i class="fas fa-external-link-alt"></i> فتح الملف الشخصي
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- ===== الفوتر ===== -->
     <footer class="footer">
         <p>© 2026 الأكاديمية الذكية | <a href="https://discord.gg/RAS" target="_blank">الهلال الأحمر لمحافظة الرس</a> | جهاد 511</p>
@@ -651,9 +885,9 @@
         const ctx = canvas.getContext('2d');
         let width, height, waveOffset = 0;
         const waves = [
-            { amplitude: 20, frequency: 0.018, speed: 0.5, color: 'rgba(230, 57, 70, 0.3)' },
-            { amplitude: 12, frequency: 0.028, speed: 0.7, color: 'rgba(230, 57, 70, 0.25)' },
-            { amplitude: 28, frequency: 0.009, speed: 0.35, color: 'rgba(230, 57, 70, 0.2)' },
+            { amplitude: 20, frequency: 0.018, speed: 0.5, color: 'rgba(198, 40, 40, 0.30)' },
+            { amplitude: 12, frequency: 0.028, speed: 0.7, color: 'rgba(198, 40, 40, 0.25)' },
+            { amplitude: 28, frequency: 0.009, speed: 0.35, color: 'rgba(198, 40, 40, 0.20)' },
         ];
 
         function resizeCanvas() {
@@ -673,7 +907,7 @@
                     const y = height / 2 +
                         Math.sin(x * wave.frequency + waveOffset * wave.speed + index * 1.8) * wave.amplitude +
                         Math.sin(x * wave.frequency * 0.6 + waveOffset * wave.speed * 0.8 + index * 1.2) * (wave
-                        .amplitude * 0.5);
+                            .amplitude * 0.5);
                     ctx.lineTo(x, y);
                 }
                 ctx.lineTo(width, height);
@@ -717,7 +951,7 @@
                 })
                 .catch(err => {
                     dynamic.innerHTML = `
-                        <div style="text-align:center;padding:2rem;color:#ff6b6b;">
+                        <div style="text-align:center;padding:2rem;color:#e63946;">
                             <i class="fas fa-exclamation-triangle" style="font-size:2rem;display:block;margin-bottom:1rem;"></i>
                             <strong>حدث خطأ:</strong> ${err.message}
                             <br><br>
@@ -738,6 +972,59 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // ===== مودال الديسكورد =====
+        function openDiscordModal() {
+            document.getElementById('discordModal').classList.add('show');
+            document.getElementById('copyFeedback').classList.remove('show');
+        }
+
+        function closeDiscordModal() {
+            document.getElementById('discordModal').classList.remove('show');
+        }
+
+        function copyDiscordId() {
+            const id = '408308082402131969';
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(id).then(() => {
+                    showCopyFeedback();
+                }).catch(() => {
+                    fallbackCopy(id);
+                });
+            } else {
+                fallbackCopy(id);
+            }
+        }
+
+        function fallbackCopy(text) {
+            const input = document.createElement('input');
+            input.value = text;
+            input.style.position = 'fixed';
+            input.style.opacity = '0';
+            document.body.appendChild(input);
+            input.select();
+            try {
+                document.execCommand('copy');
+                showCopyFeedback();
+            } catch (e) {
+                alert('تعذر النسخ، يمكنك نسخ المعرف يدوياً: ' + text);
+            }
+            document.body.removeChild(input);
+        }
+
+        function showCopyFeedback() {
+            const el = document.getElementById('copyFeedback');
+            el.classList.add('show');
+            setTimeout(() => {
+                el.classList.remove('show');
+            }, 2200);
+        }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeDiscordModal();
+            }
+        });
+
         // ===== تأثير ظهور البطاقات =====
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -755,7 +1042,7 @@
             observer.observe(card);
         });
 
-        console.log('🚀 الشعار مرتبط بسيرفر الديسكورد!');
+        console.log('🚀 ji© | Discord: .ji. | ID: 408308082402131969');
     </script>
 
 </body>
