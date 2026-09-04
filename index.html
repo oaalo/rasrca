@@ -5,105 +5,153 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>الأكاديمية الذكية - الهلال الأحمر لمحافظة الرس</title>
 
-    <!-- ===== معاينة المشاركة ===== -->
     <meta property="og:title" content="الأكاديمية الذكية - الهلال الأحمر لمحافظة الرس" />
     <meta property="og:description" content="منصة متكاملة لتوظيف وتطوير الهلال الأحمر لمحافظة الرس" />
     <meta property="og:image" content="https://oaalo.github.io/rasrca/image.png?v=2" />
     <meta property="og:url" content="https://oaalo.github.io/rasrca/" />
 
-    <!-- ===== الخطوط والأيقونات ===== -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;700;800;900&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
 
     <style>
-        /* ============================================================
-           الأساسيات وإعادة التعيين
-           ============================================================ */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
             font-family: 'Tajawal', sans-serif;
-            background-color: #0b0d10;
-            color: #f5f5f5;
-            line-height: 1.6;
+            background: #0b0d10;
+            color: #fff;
             overflow-x: hidden;
+            scroll-behavior: smooth;
         }
-
         a {
             text-decoration: none;
             color: inherit;
         }
-
         ul {
             list-style: none;
         }
 
-        /* ============================================================
-           الخلفية الديناميكية (موجات متحركة)
-           ============================================================ */
-        #bg-canvas {
+        /* ===== الخلفية الثابتة ===== */
+        #fixed-bg {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: -1;
-            background: radial-gradient(circle at 30% 40%, #1a1a2e, #0b0d10);
+            z-index: 0;
+            overflow: hidden;
+        }
+        .bg-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background:
+                radial-gradient(ellipse at center, rgba(11, 13, 16, 0.3) 0%, rgba(11, 13, 16, 0.85) 100%),
+                url('https://images.unsplash.com/photo-1587351021759-3e566b6af7cc?w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-blend-mode: overlay;
+        }
+        .bg-glow {
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 70%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(230, 57, 70, 0.25) 0%, rgba(230, 57, 70, 0.05) 40%, transparent 70%);
+            filter: blur(80px);
+            animation: pulseGlow 6s ease-in-out infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% {
+                opacity: 0.5;
+                transform: scale(1);
+            }
+            100% {
+                opacity: 1;
+                transform: scale(1.15);
+            }
+        }
+        #waveCanvas {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 35%;
+            pointer-events: none;
         }
 
-        /* ============================================================
-           شريط التنقل (Sticky Navbar)
-           ============================================================ */
+        /* ===== الشعار ===== */
+        .site-logo {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            z-index: 999;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 3px solid rgba(230, 57, 70, 0.5);
+            box-shadow: 0 0 40px rgba(230, 57, 70, 0.25);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .site-logo:hover {
+            transform: scale(1.08);
+            border-color: #ff6b6b;
+            box-shadow: 0 0 60px rgba(230, 57, 70, 0.4);
+        }
+        .site-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* ===== شريط التنقل ===== */
         .navbar {
-            position: sticky;
-            top: 0;
-            z-index: 1000;
+            position: relative;
+            z-index: 10;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0.8rem 2rem;
-            background: rgba(11, 13, 16, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-bottom: 1px solid rgba(255, 215, 0, 0.08);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            padding: 1rem 2rem;
+            background: rgba(11, 13, 16, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 215, 0, 0.06);
         }
-
         .navbar .logo {
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             font-weight: 800;
             color: #f9a825;
         }
-
-        .navbar .logo img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            border: 2px solid rgba(198, 40, 40, 0.4);
-            object-fit: cover;
+        .navbar .logo span {
+            display: none;
         }
-
+        @media (min-width: 768px) {
+            .navbar .logo span {
+                display: inline;
+            }
+        }
         .navbar .nav-links {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
+            gap: 1.2rem;
         }
-
         .navbar .nav-links a {
-            font-size: 0.95rem;
-            font-weight: 500;
             color: #b0b0b0;
-            transition: color 0.3s;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: 0.3s;
             position: relative;
         }
-
         .navbar .nav-links a::after {
             content: '';
             position: absolute;
@@ -112,37 +160,33 @@
             width: 0;
             height: 2px;
             background: #f9a825;
-            transition: width 0.3s;
+            transition: 0.3s;
         }
-
         .navbar .nav-links a:hover {
-            color: #f5f5f5;
+            color: #fff;
         }
-
         .navbar .nav-links a:hover::after {
             width: 100%;
         }
-
         .navbar .discord-btn {
             background: linear-gradient(145deg, #c62828, #b71c1c);
             color: #fff;
             padding: 0.4rem 1.2rem;
             border-radius: 40px;
             font-weight: 700;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: 0.3s;
-            border: 1px solid rgba(255, 215, 0, 0.15);
+            border: 1px solid rgba(255, 215, 0, 0.1);
         }
-
         .navbar .discord-btn:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 25px rgba(198, 40, 40, 0.3);
+            box-shadow: 0 0 20px rgba(198, 40, 40, 0.25);
         }
 
-        /* ============================================================
-           القسم الرئيسي (Hero)
-           ============================================================ */
+        /* ===== الهيرو ===== */
         .hero {
+            position: relative;
+            z-index: 1;
             min-height: 85vh;
             display: flex;
             flex-direction: column;
@@ -150,9 +194,7 @@
             align-items: center;
             text-align: center;
             padding: 2rem;
-            position: relative;
         }
-
         .hero .badge {
             background: rgba(198, 40, 40, 0.15);
             border: 1px solid rgba(198, 40, 40, 0.3);
@@ -160,18 +202,15 @@
             border-radius: 60px;
             font-size: 0.8rem;
             color: #ff6b6b;
-            letter-spacing: 1.5px;
+            letter-spacing: 1px;
             backdrop-filter: blur(4px);
             margin-bottom: 1.5rem;
         }
-
         .hero h1 {
-            font-size: clamp(2.8rem, 8vw, 5.5rem);
+            font-size: clamp(2.6rem, 8vw, 5rem);
             font-weight: 900;
             line-height: 1.2;
-            margin-bottom: 0.5rem;
         }
-
         .hero h1 .highlight {
             background: linear-gradient(135deg, #f9a825, #c62828, #f9a825);
             background-size: 200% 200%;
@@ -180,7 +219,6 @@
             background-clip: text;
             animation: shimmer 4s ease-in-out infinite;
         }
-
         @keyframes shimmer {
             0% {
                 background-position: 0% 50%;
@@ -192,149 +230,133 @@
                 background-position: 0% 50%;
             }
         }
-
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             color: #b0b0b0;
-            max-width: 700px;
+            max-width: 650px;
             margin: 0.5rem auto 2rem;
             font-weight: 300;
         }
-
         .hero .cta-btn {
             background: linear-gradient(145deg, #c62828, #b71c1c);
             color: #fff;
-            padding: 0.8rem 2.5rem;
+            padding: 0.7rem 2.2rem;
             border-radius: 60px;
             font-weight: 700;
-            font-size: 1rem;
-            transition: 0.3s;
+            font-size: 0.95rem;
             border: none;
             cursor: pointer;
-            box-shadow: 0 8px 30px rgba(198, 40, 40, 0.2);
+            transition: 0.3s;
+            box-shadow: 0 8px 25px rgba(198, 40, 40, 0.15);
         }
-
         .hero .cta-btn:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(198, 40, 40, 0.35);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 35px rgba(198, 40, 40, 0.25);
         }
 
-        /* ============================================================
-           قسم البطاقات (الأقسام الرئيسية)
-           ============================================================ */
+        /* ===== البطاقات ===== */
         .sections-grid {
-            max-width: 1200px;
-            margin: 3rem auto 4rem;
+            position: relative;
+            z-index: 1;
+            max-width: 1100px;
+            margin: 2rem auto 4rem;
             padding: 0 2rem;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.8rem;
         }
-
         .section-card {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 215, 0, 0.06);
-            border-radius: 28px;
-            padding: 2rem 1.5rem;
+            border-radius: 24px;
+            padding: 1.8rem 1.2rem;
             text-align: center;
             cursor: pointer;
             transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
             opacity: 0;
-            transform: translateY(40px);
-            animation: fadeUp 0.8s ease forwards;
+            transform: translateY(30px);
+            animation: fadeUp 0.7s ease forwards;
         }
-
         .section-card:nth-child(1) {
-            animation-delay: 0.1s;
+            animation-delay: 0.05s;
         }
         .section-card:nth-child(2) {
-            animation-delay: 0.2s;
+            animation-delay: 0.1s;
         }
         .section-card:nth-child(3) {
-            animation-delay: 0.3s;
+            animation-delay: 0.15s;
         }
         .section-card:nth-child(4) {
-            animation-delay: 0.4s;
+            animation-delay: 0.2s;
         }
-
         @keyframes fadeUp {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
         .section-card:hover {
-            transform: translateY(-10px);
-            border-color: rgba(255, 215, 0, 0.2);
-            box-shadow: 0 20px 50px rgba(198, 40, 40, 0.08);
-            background: rgba(255, 255, 255, 0.06);
+            transform: translateY(-6px);
+            border-color: rgba(255, 215, 0, 0.15);
+            box-shadow: 0 15px 40px rgba(198, 40, 40, 0.06);
+            background: rgba(255, 255, 255, 0.07);
         }
-
         .section-card .icon {
-            font-size: 3.5rem;
+            font-size: 3rem;
             display: block;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
         }
-
         .section-card h3 {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 800;
             color: #f5f5f5;
-            margin-bottom: 0.3rem;
         }
-
         .section-card p {
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             color: #8a8a8a;
             font-weight: 300;
+            margin-top: 0.2rem;
         }
-
         .section-card .arrow {
             display: inline-block;
-            margin-top: 0.8rem;
-            font-size: 1.4rem;
+            margin-top: 0.6rem;
             color: #f9a825;
+            font-size: 1.2rem;
             transition: 0.3s;
         }
-
         .section-card:hover .arrow {
-            transform: translateX(-6px);
+            transform: translateX(-5px);
         }
 
-        /* ============================================================
-           حاوية المحتوى الديناميكي
-           ============================================================ */
+        /* ===== المحتوى الديناميكي ===== */
         .content-wrapper {
+            position: relative;
+            z-index: 1;
             max-width: 1100px;
             margin: 0 auto;
             padding: 0 2rem 4rem;
             display: none;
-            animation: fadeSlide 0.5s ease;
         }
-
         .content-wrapper.active {
             display: block;
+            animation: fadeSlide 0.4s ease;
         }
-
         @keyframes fadeSlide {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
-
         .content-wrapper .back-btn {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            color: #f5f5f5;
+            color: #fff;
             padding: 0.5rem 1.8rem;
             border-radius: 60px;
             font-size: 0.9rem;
@@ -344,104 +366,149 @@
             backdrop-filter: blur(6px);
             margin-bottom: 2rem;
         }
-
         .content-wrapper .back-btn:hover {
             background: #c62828;
             border-color: #c62828;
-            box-shadow: 0 0 30px rgba(198, 40, 40, 0.2);
+            box-shadow: 0 0 25px rgba(198, 40, 40, 0.2);
         }
-
         .content-card {
             background: rgba(255, 255, 255, 0.04);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 215, 0, 0.08);
-            border-radius: 32px;
+            border-radius: 28px;
             padding: 2.5rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
         }
 
-        /* ============================================================
-           التذييل (Footer)
-           ============================================================ */
-        .footer {
-            border-top: 1px solid rgba(255, 215, 0, 0.05);
-            padding: 2rem;
-            text-align: center;
-            color: #666;
-            font-size: 0.85rem;
+        /* ===== المكونات الداخلية ===== */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+            gap: 18px;
+            margin-top: 15px;
+        }
+        .item-card {
+            background: rgba(20, 16, 14, 0.75);
+            border: 1px solid rgba(230, 57, 70, 0.12);
+            border-radius: 16px;
+            padding: 16px 18px;
+            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        .item-card:hover {
+            transform: translateY(-4px);
+            border-color: rgba(230, 57, 70, 0.3);
+            box-shadow: 0 10px 25px rgba(230, 57, 70, 0.06);
+            background: rgba(30, 24, 20, 0.85);
+        }
+        .item-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, #e63946, #ff6b6b, #e63946);
+            border-radius: 0 3px 3px 0;
+            opacity: 0.5;
+        }
+        .item-card .red-badge {
+            display: inline-block;
+            background: linear-gradient(145deg, #e63946, #c62828);
+            color: #fff;
+            font-weight: 800;
+            font-size: 0.7rem;
+            padding: 2px 12px;
+            border-radius: 30px;
+        }
+        .item-card .title {
+            color: #f1f5f9;
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+        .item-card .amount {
+            color: #ff6b6b;
+            font-size: 1.2rem;
+            font-weight: 900;
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 1px dashed rgba(230, 57, 70, 0.12);
+        }
+        .item-card .note {
+            color: #94a3b8;
+            font-size: 0.8rem;
+            margin-top: 5px;
         }
 
-        .footer a {
-            color: #f9a825;
+        .external-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #ff6b6b;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 8px 0;
+            border-bottom: 1px solid transparent;
             transition: 0.3s;
         }
+        .external-link:hover {
+            color: #e63946;
+            border-bottom-color: #e63946;
+        }
+        .btn-red {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(145deg, #e63946, #c62828);
+            color: #fff !important;
+            font-weight: 800;
+            padding: 8px 20px;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.1);
+        }
+        .btn-red:hover {
+            transform: scale(1.03);
+            box-shadow: 0 6px 20px rgba(230, 57, 70, 0.2);
+            background: linear-gradient(145deg, #ff6b6b, #e63946);
+        }
 
-        .footer a:hover {
+        /* ===== الفوتر ===== */
+        .footer {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+            color: #64748b;
+            font-size: 0.85rem;
+        }
+        .footer a {
             color: #ff6b6b;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            color: #e63946;
+            text-decoration: underline;
         }
 
-        /* ============================================================
-           التجاوب (Responsive)
-           ============================================================ */
-        @media (max-width: 768px) {
-            .navbar {
-                flex-wrap: wrap;
-                padding: 0.6rem 1rem;
-                gap: 0.5rem;
-            }
-            .navbar .nav-links {
-                gap: 1rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            .navbar .nav-links a {
-                font-size: 0.8rem;
-            }
-            .hero h1 {
-                font-size: 2.4rem;
-            }
-            .sections-grid {
-                grid-template-columns: 1fr 1fr;
-                padding: 0 1rem;
-            }
-            .content-card {
-                padding: 1.5rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .sections-grid {
-                grid-template-columns: 1fr;
-            }
-            .navbar .logo {
-                font-size: 1rem;
-            }
-            .navbar .logo img {
-                width: 35px;
-                height: 35px;
-            }
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-        }
-
-        /* ============================================================
-           مؤقت التحميل
-           ============================================================ */
+        /* ===== تحميل ===== */
         .loader {
             text-align: center;
             padding: 2rem;
-            color: #8a8a8a;
+            color: #94a3b8;
         }
-
         .loader i {
             font-size: 2rem;
             display: block;
             margin-bottom: 1rem;
             animation: spin 1s linear infinite;
         }
-
         @keyframes spin {
             0% {
                 transform: rotate(0);
@@ -450,17 +517,99 @@
                 transform: rotate(360deg);
             }
         }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-wrap: wrap;
+                padding: 0.6rem 1rem;
+                gap: 0.4rem;
+            }
+            .navbar .nav-links {
+                gap: 0.8rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .navbar .nav-links a {
+                font-size: 0.8rem;
+            }
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+            .sections-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+            .section-card {
+                padding: 1.2rem 0.8rem;
+            }
+            .section-card .icon {
+                font-size: 2.4rem;
+            }
+            .section-card h3 {
+                font-size: 1.1rem;
+            }
+            .content-card {
+                padding: 1.5rem;
+            }
+            .grid-2col {
+                grid-template-columns: 1fr;
+            }
+            .site-logo {
+                width: 60px;
+                height: 60px;
+                top: 12px;
+                left: 12px;
+            }
+        }
+        @media (max-width: 480px) {
+            .sections-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            .navbar .logo {
+                font-size: 1rem;
+            }
+            .site-logo {
+                width: 50px;
+                height: 50px;
+                top: 10px;
+                left: 10px;
+            }
+        }
+
+        #homepage {
+            display: block;
+        }
+        #homepage.hidden {
+            display: none;
+        }
+        .content-page {
+            display: none;
+        }
+        .content-page.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
 
-    <!-- ===== الخلفية الديناميكية ===== -->
-    <canvas id="bg-canvas"></canvas>
+    <!-- ===== الخلفية الثابتة ===== -->
+    <div id="fixed-bg">
+        <div class="bg-image"></div>
+        <div class="bg-glow"></div>
+        <canvas id="waveCanvas"></canvas>
+    </div>
+
+    <!-- ===== الشعار ===== -->
+    <a href="https://discord.gg/RAS" target="_blank" class="site-logo">
+        <img src="https://oaalo.github.io/rasrca/image.png?v=2" alt="شعار الهلال الأحمر" />
+    </a>
 
     <!-- ===== شريط التنقل ===== -->
     <nav class="navbar">
         <div class="logo">
-            <img src="https://oaalo.github.io/rasrca/image.png?v=2" alt="شعار الهلال الأحمر" />
             <span>الأكاديمية الذكية</span>
         </div>
         <div class="nav-links">
@@ -475,7 +624,7 @@
         </a>
     </nav>
 
-    <!-- ===== القسم الرئيسي ===== -->
+    <!-- ===== الهيرو ===== -->
     <section class="hero" id="homeHero">
         <div class="badge">⛑️ الهلال الأحمر لمحافظة الرس</div>
         <h1>
@@ -490,7 +639,7 @@
         </button>
     </section>
 
-    <!-- ===== بطاقات الأقسام (4 أقسام فقط) ===== -->
+    <!-- ===== البطاقات ===== -->
     <div class="sections-grid" id="sectionsGrid">
         <div class="section-card" onclick="loadContent('laws')">
             <span class="icon">📜</span>
@@ -518,7 +667,7 @@
         </div>
     </div>
 
-    <!-- ===== حاوية المحتوى الديناميكي ===== -->
+    <!-- ===== المحتوى الديناميكي ===== -->
     <div class="content-wrapper" id="contentWrapper">
         <button class="back-btn" onclick="goHome()">➜ العودة للرئيسية</button>
         <div class="content-card" id="dynamicContent">
@@ -526,71 +675,48 @@
         </div>
     </div>
 
-    <!-- ===== التذييل ===== -->
+    <!-- ===== الفوتر ===== -->
     <footer class="footer">
         <p>© 2026 الأكاديمية الذكية | <a href="https://discord.gg/RAS" target="_blank">الهلال الأحمر لمحافظة الرس</a> | جهاد 511</p>
     </footer>
 
-    <!-- ===== سكريبت الخلفية والتفاعل ===== -->
+    <!-- ===== السكريبتات ===== -->
     <script>
-        // ============================================================
-        // خلفية الأمواج (Canvas)
-        // ============================================================
-        const canvas = document.getElementById('bg-canvas');
+        // ===== الأمواج =====
+        const canvas = document.getElementById('waveCanvas');
         const ctx = canvas.getContext('2d');
-        let w, h, waveOffset = 0;
+        let width, height, waveOffset = 0;
+        const waves = [
+            { amplitude: 20, frequency: 0.018, speed: 0.5, color: 'rgba(230, 57, 70, 0.3)' },
+            { amplitude: 12, frequency: 0.028, speed: 0.7, color: 'rgba(230, 57, 70, 0.25)' },
+            { amplitude: 28, frequency: 0.009, speed: 0.35, color: 'rgba(230, 57, 70, 0.2)' },
+        ];
 
         function resizeCanvas() {
-            w = canvas.width = window.innerWidth;
-            h = canvas.height = window.innerHeight;
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight * 0.35;
+            canvas.style.height = height + 'px';
         }
 
         function drawWaves() {
-            ctx.clearRect(0, 0, w, h);
-            waveOffset += 0.008;
-
-            // طبقة أولى (أحمر)
-            ctx.beginPath();
-            ctx.moveTo(0, h);
-            for (let x = 0; x <= w; x++) {
-                const y = h / 2 + 40 +
-                    Math.sin(x * 0.008 + waveOffset * 0.8) * 25 +
-                    Math.sin(x * 0.015 + waveOffset * 1.2 + 1) * 15;
-                ctx.lineTo(x, y);
-            }
-            ctx.lineTo(w, h);
-            ctx.closePath();
-            ctx.fillStyle = 'rgba(198, 40, 40, 0.08)';
-            ctx.fill();
-
-            // طبقة ثانية (ذهبي)
-            ctx.beginPath();
-            ctx.moveTo(0, h);
-            for (let x = 0; x <= w; x++) {
-                const y = h / 2 + 60 +
-                    Math.sin(x * 0.01 + waveOffset * 0.6 + 2) * 20 +
-                    Math.sin(x * 0.02 + waveOffset * 1.0 + 3) * 12;
-                ctx.lineTo(x, y);
-            }
-            ctx.lineTo(w, h);
-            ctx.closePath();
-            ctx.fillStyle = 'rgba(249, 168, 37, 0.05)';
-            ctx.fill();
-
-            // طبقة ثالثة (أحمر داكن)
-            ctx.beginPath();
-            ctx.moveTo(0, h);
-            for (let x = 0; x <= w; x++) {
-                const y = h / 2 + 80 +
-                    Math.sin(x * 0.006 + waveOffset * 0.4 + 4) * 30 +
-                    Math.sin(x * 0.018 + waveOffset * 0.9 + 5) * 18;
-                ctx.lineTo(x, y);
-            }
-            ctx.lineTo(w, h);
-            ctx.closePath();
-            ctx.fillStyle = 'rgba(183, 28, 28, 0.06)';
-            ctx.fill();
-
+            if (!ctx) return;
+            ctx.clearRect(0, 0, width, height);
+            waveOffset += 0.012;
+            waves.forEach((wave, index) => {
+                ctx.beginPath();
+                ctx.moveTo(0, height);
+                for (let x = 0; x <= width; x++) {
+                    const y = height / 2 +
+                        Math.sin(x * wave.frequency + waveOffset * wave.speed + index * 1.8) * wave.amplitude +
+                        Math.sin(x * wave.frequency * 0.6 + waveOffset * wave.speed * 0.8 + index * 1.2) * (wave
+                        .amplitude * 0.5);
+                    ctx.lineTo(x, y);
+                }
+                ctx.lineTo(width, height);
+                ctx.closePath();
+                ctx.fillStyle = wave.color;
+                ctx.fill();
+            });
             requestAnimationFrame(drawWaves);
         }
 
@@ -598,9 +724,7 @@
         resizeCanvas();
         drawWaves();
 
-        // ============================================================
-        // التنقل وتحميل المحتوى
-        // ============================================================
+        // ===== التنقل =====
         function scrollToHome() {
             document.getElementById('homeHero').scrollIntoView({ behavior: 'smooth' });
             if (document.getElementById('contentWrapper').classList.contains('active')) {
@@ -612,7 +736,6 @@
             const wrapper = document.getElementById('contentWrapper');
             const dynamic = document.getElementById('dynamicContent');
 
-            // إخفاء البطاقات وإظهار المحتوى
             document.getElementById('sectionsGrid').style.display = 'none';
             document.getElementById('homeHero').style.minHeight = 'auto';
             document.getElementById('homeHero').style.padding = '2rem 0';
@@ -651,7 +774,7 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // تأثير ظهور البطاقات عند التمرير
+        // ===== تأثير ظهور البطاقات =====
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -659,16 +782,16 @@
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }, { threshold: 0.2 });
+        }, { threshold: 0.15 });
 
         document.querySelectorAll('.section-card').forEach(card => {
             card.style.opacity = '0';
-            card.style.transform = 'translateY(40px)';
-            card.style.transition = 'all 0.8s cubic-bezier(0.23, 1, 0.32, 1)';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'all 0.7s cubic-bezier(0.23, 1, 0.32, 1)';
             observer.observe(card);
         });
 
-        console.log('🚀 الموقع يعمل بالتصميم الجديد بعد الحذف!');
+        console.log('🚀 الموقع يعمل بالتصميم الجديد!');
     </script>
 
 </body>
