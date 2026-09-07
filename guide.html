@@ -56,6 +56,27 @@
         .header h1 i {
             color: #f5d742;
         }
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .back-link {
+            display: inline-block;
+            color: #ff6b6b;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 0.95rem;
+            transition: 0.3s;
+            background: rgba(255,255,255,0.05);
+            padding: 6px 16px;
+            border-radius: 40px;
+            border: 1px solid rgba(255,255,255,0.06);
+        }
+        .back-link:hover {
+            color: #f5d742;
+            background: rgba(255,255,255,0.08);
+        }
         .slide-counter {
             background: rgba(255, 255, 255, 0.07);
             padding: 6px 20px;
@@ -152,7 +173,6 @@
             font-weight: 700;
             flex-shrink: 0;
         }
-        /* تنسيق العقوبة بشكل واضح ومنفصل */
         .slide-content ul li .penalty {
             display: block;
             padding-right: 28px;
@@ -237,6 +257,9 @@
             color: #d6c5c5;
             min-width: 100px;
         }
+        .youtube-iframe-container {
+            display: none;
+        }
 
         /* التنقل */
         .nav-controls {
@@ -314,6 +337,7 @@
             .slide-title { font-size: 1.4rem; }
             .slide-content { font-size: 0.95rem; }
             .nav-btn { padding: 8px 18px; font-size: 0.85rem; }
+            .header-left { flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -322,8 +346,14 @@
 <div class="container">
     <div class="header">
         <h1><i class="fas fa-ambulance"></i> الدليل الشامل للهلال الأحمر</h1>
-        <div class="slide-counter">
-            <i class="fas fa-layer-group"></i> سلايد <span id="currentSlideNum">1</span> / <span id="totalSlidesNum">0</span>
+        <div class="header-left">
+            <!-- رابط العودة إلى منصة التوظيف (index.html) -->
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-right"></i> العودة للتوظيف
+            </a>
+            <div class="slide-counter">
+                <i class="fas fa-layer-group"></i> سلايد <span id="currentSlideNum">1</span> / <span id="totalSlidesNum">0</span>
+            </div>
         </div>
     </div>
 
@@ -344,7 +374,7 @@
         //  🔹 ضع روابط الصوت لكل سلايد هنا (6 سلايدات)
         // ================================================================
         const slideAudioUrls = [
-            'https://www.youtube.com/watch?v=example1',
+            'https://youtu.be/RltO6FjcHOY',
             'https://www.example.com/audio2.mp3',
             'https://www.youtube.com/watch?v=example3',
             'https://www.example.com/audio4.mp3',
@@ -353,7 +383,7 @@
         ];
 
         // ================================================================
-        //  محتوى السلايدات (تم تحسين سلايدة الأخطاء الشائعة)
+        //  محتوى السلايدات (مع سلايدة الأخطاء المحسّنة)
         // ================================================================
         const slidesData = [{
             title: '📡 ترددات موجات الراديو',
@@ -439,7 +469,6 @@
             </div>
             `
         }, {
-            // ===== هذه هي السلايدة المطورة (الأخطاء الشائعة) =====
             title: '⚠️ أخطاء شائعة في الميدان',
             content: `
             <ul>
@@ -462,7 +491,7 @@
                 <li>
                     <span class="error-title">تخطي مراجع (التدرج الوظيفي)</span>
                     <span class="penalty">العقوبة: إنذار وظيفي + غرامة 1,000,000 مليون</span>
-                    <span style="display:block; padding-right:28px; color:#a0b0c0; font-size:0.85rem; margin-top:2px;">(فرد عادي ← مركز العمليات ← مشرف ميداني ← مشرف عام ← قيادة ← نائب قائد ← قائد الهلال)</span>
+                    <span style="display:block; padding-right:28px; color:#a0b0c0; font-size:0.85rem; margin-top:2px;">(فرد عادي ← مشرف ميداني ← مشرف عام ← قيادة ← نائب قائد ← قائد الهلال)</span>
                 </li>
                 <li>
                     <span class="error-title">قيادة غير واقعية</span>
@@ -507,6 +536,7 @@
         const total = slidesData.length;
         let currentIndex = 0;
         let currentAudio = null;
+        let currentIframe = null;
 
         const wrapper = document.getElementById('slideWrapper');
         const dotsContainer = document.getElementById('dotsContainer');
@@ -515,41 +545,102 @@
         const currentNumSpan = document.getElementById('currentSlideNum');
         const totalNumSpan = document.getElementById('totalSlidesNum');
 
-        // تشغيل الصوت
-        function playAudioFromUrl(url) {
+        // ================================================================
+        //  تشغيل الصوت (بدون فتح نافذة جديدة)
+        // ================================================================
+        function playAudioFromUrl(url, slideIndex) {
             if (!url) {
                 alert('لا يوجد رابط صوت مخصص لهذا السلايد.');
                 return;
             }
+
             if (currentAudio) {
                 currentAudio.pause();
                 currentAudio = null;
             }
+            if (currentIframe) {
+                currentIframe.remove();
+                currentIframe = null;
+            }
+
             if (url.includes('youtube.com') || url.includes('youtu.be')) {
-                window.open(url, '_blank');
+                let videoId = '';
+                const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                const match = url.match(regExp);
+                if (match && match[2].length === 11) {
+                    videoId = match[2];
+                } else {
+                    const urlParams = new URLSearchParams(new URL(url).search);
+                    videoId = urlParams.get('v') || '';
+                }
+
+                if (!videoId) {
+                    alert('تعذر استخراج معرف الفيديو من رابط يوتيوب.');
+                    return;
+                }
+
+                const iframe = document.createElement('iframe');
+                iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1&controls=0&rel=0&showinfo=0&iv_load_policy=3&modestbranding=1&playsinline=1`;
+                iframe.width = '1';
+                iframe.height = '1';
+                iframe.style.border = 'none';
+                iframe.style.position = 'absolute';
+                iframe.style.opacity = '0';
+                iframe.style.pointerEvents = 'none';
+                iframe.allow = 'autoplay; encrypted-media';
+                iframe.allowFullscreen = false;
+                iframe.setAttribute('allowfullscreen', 'false');
+                iframe.setAttribute('webkitallowfullscreen', 'false');
+                iframe.setAttribute('mozallowfullscreen', 'false');
+
+                const activeSlide = document.querySelector(`.slide[data-index="${slideIndex}"]`);
+                if (activeSlide) {
+                    activeSlide.appendChild(iframe);
+                    currentIframe = iframe;
+                    const statusSpan = document.getElementById(`status-${slideIndex}`);
+                    if (statusSpan) statusSpan.textContent = '▶️ تشغيل يوتيوب...';
+                    setTimeout(() => {
+                        if (statusSpan && currentIframe) {
+                            statusSpan.innerHTML = `<i class="fas fa-check-circle" style="color:#2ecc71;"></i> جاري التشغيل`;
+                        }
+                    }, 3000);
+                }
                 return;
             }
+
             try {
                 const audio = new Audio(url);
                 audio.play().catch(() => {
-                    alert('تعذر تشغيل الصوت مباشرة. سيتم فتح الرابط في نافذة جديدة.');
-                    window.open(url, '_blank');
+                    if (confirm('تعذر تشغيل الصوت مباشرة. هل تريد فتح الرابط في نافذة جديدة؟')) {
+                        window.open(url, '_blank');
+                    }
                 });
                 currentAudio = audio;
                 audio.onended = () => { currentAudio = null; };
                 audio.onerror = () => {
                     currentAudio = null;
-                    if (confirm('تعذر تشغيل الملف الصوتي، هل تريد فتح الرابط؟')) {
+                    if (confirm('تعذر تشغيل الملف الصوتي، هل تريد فتح الرابط في نافذة جديدة؟')) {
                         window.open(url, '_blank');
                     }
                 };
+                const statusSpan = document.getElementById(`status-${slideIndex}`);
+                if (statusSpan) statusSpan.textContent = '▶️ جاري التشغيل...';
+                audio.onplay = () => {
+                    if (statusSpan) statusSpan.innerHTML = `<i class="fas fa-check-circle" style="color:#2ecc71;"></i> يتم التشغيل`;
+                };
+                audio.onended = () => {
+                    if (statusSpan) {
+                        statusSpan.innerHTML = `<i class="fas fa-check-circle" style="color:#2ecc71;"></i> انتهى التشغيل`;
+                    }
+                };
             } catch {
-                alert('حدث خطأ، سيتم فتح الرابط في نافذة جديدة.');
-                window.open(url, '_blank');
+                alert('حدث خطأ، حاول فتح الرابط يدوياً.');
             }
         }
 
-        // بناء السلايدات
+        // ================================================================
+        //  بناء السلايدات
+        // ================================================================
         function buildSlides() {
             wrapper.innerHTML = '';
             slidesData.forEach((s, idx) => {
@@ -567,7 +658,6 @@
                 contentDiv.innerHTML = s.content;
                 div.appendChild(contentDiv);
 
-                // قسم الصوت
                 const audioSection = document.createElement('div');
                 audioSection.className = 'audio-section';
 
@@ -588,7 +678,7 @@
                 playBtn.addEventListener('click', function() {
                     const index = parseInt(this.dataset.index);
                     const url = slideAudioUrls[index] || '';
-                    playAudioFromUrl(url);
+                    playAudioFromUrl(url, index);
                 });
 
                 audioSection.appendChild(playBtn);
@@ -599,7 +689,6 @@
                 updateStatus(idx);
             });
 
-            // النقاط
             dotsContainer.innerHTML = '';
             for (let i = 0; i < total; i++) {
                 const dot = document.createElement('button');
@@ -634,6 +723,10 @@
                 currentAudio.pause();
                 currentAudio = null;
             }
+            if (currentIframe) {
+                currentIframe.remove();
+                currentIframe = null;
+            }
             currentIndex = index;
             updateUI();
             document.querySelectorAll('.slide').forEach((el, i) => {
@@ -651,7 +744,6 @@
             nextBtn.disabled = currentIndex === total - 1;
         }
 
-        // الأحداث
         prevBtn.addEventListener('click', () => {
             if (currentIndex > 0) goToSlide(currentIndex - 1);
         });
@@ -669,10 +761,10 @@
             }
         });
 
-        // بدء التشغيل
         buildSlides();
         setTimeout(updateAllStatus, 50);
     })();
 </script>
+
 </body>
 </html>
