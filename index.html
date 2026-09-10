@@ -836,7 +836,7 @@
                 updateUrl(section);
             }
 
-            fetch(`${section}.html`)
+            fetch(`${section}-content.html`)
                 .then(res => {
                     if (!res.ok) throw new Error('الملف غير موجود');
                     return res.text();
