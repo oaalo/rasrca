@@ -35,7 +35,7 @@
             list-style: none;
         }
 
-        /* ===== الخلفية الثابتة (ملوّنة حسب الهوية) ===== */
+        /* ===== الخلفية الثابتة ===== */
         #fixed-bg {
             position: fixed;
             top: 0;
@@ -52,11 +52,8 @@
             width: 100%;
             height: 100%;
             background:
-                /* توهج ذهبي في الأعلى */
                 radial-gradient(ellipse at 70% 10%, rgba(249, 168, 37, 0.20) 0%, transparent 50%),
-                /* توهج أحمر في الأسفل */
                 radial-gradient(ellipse at 30% 90%, rgba(198, 40, 40, 0.35) 0%, transparent 55%),
-                /* خلفية سوداء داكنة مع لمسة حمراء */
                 linear-gradient(145deg, #0d0d0d 0%, #1a0808 40%, #0d0d0d 100%);
             background-blend-mode: normal;
         }
@@ -71,14 +68,8 @@
             animation: pulseGlow 6s ease-in-out infinite alternate;
         }
         @keyframes pulseGlow {
-            0% {
-                opacity: 0.4;
-                transform: scale(1);
-            }
-            100% {
-                opacity: 0.9;
-                transform: scale(1.15);
-            }
+            0% { opacity: 0.4; transform: scale(1); }
+            100% { opacity: 0.9; transform: scale(1.15); }
         }
         #waveCanvas {
             position: absolute;
@@ -89,7 +80,7 @@
             pointer-events: none;
         }
 
-        /* ===== شريط التنقل الجديد (يسار - وسط - يمين) ===== */
+        /* ===== شريط التنقل ===== */
         .navbar {
             position: relative;
             z-index: 10;
@@ -103,15 +94,11 @@
             gap: 0.5rem;
             flex-wrap: wrap;
         }
-
-        /* الجانب الأيسر: زر ji فقط */
         .navbar-left {
             display: flex;
             align-items: center;
             flex-shrink: 0;
         }
-
-        /* زر ji */
         .ji-btn {
             background: transparent;
             border: none;
@@ -125,26 +112,9 @@
             border-radius: 6px;
             letter-spacing: 0.5px;
         }
-        .ji-btn::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            right: 0;
-            width: 0;
-            height: 2px;
-            background: #f9a825;
-            transition: 0.3s;
-        }
-        .ji-btn:hover {
-            color: #f9a825;
-        }
-        .ji-btn i {
-            margin-left: 4px;
-            font-size: 0.8rem;
-            color: #c62828;
-        }
+        .ji-btn:hover { color: #f9a825; }
+        .ji-btn i { margin-left: 4px; font-size: 0.8rem; color: #c62828; }
 
-        /* الروابط في المنتصف */
         .nav-links {
             display: flex;
             align-items: center;
@@ -160,6 +130,7 @@
             transition: 0.3s;
             position: relative;
             white-space: nowrap;
+            cursor: pointer;
         }
         .nav-links a::after {
             content: '';
@@ -171,14 +142,9 @@
             background: #f9a825;
             transition: 0.3s;
         }
-        .nav-links a:hover {
-            color: #f5f5f5;
-        }
-        .nav-links a:hover::after {
-            width: 100%;
-        }
+        .nav-links a:hover { color: #f5f5f5; }
+        .nav-links a:hover::after { width: 100%; }
 
-        /* الجانب الأيمن: الشعار + النص (رابط للسيرفر) */
         .navbar-right {
             display: flex;
             align-items: center;
@@ -193,10 +159,7 @@
             color: #f9a825;
             transition: 0.3s;
         }
-        .logo:hover {
-            opacity: 0.85;
-            transform: scale(1.02);
-        }
+        .logo:hover { opacity: 0.85; transform: scale(1.02); }
         .logo img {
             width: 38px;
             height: 38px;
@@ -204,13 +167,9 @@
             border: 2px solid rgba(198, 40, 40, 0.4);
             object-fit: cover;
         }
-        .logo .brand-text {
-            display: inline;
-        }
+        .logo .brand-text { display: inline; }
         @media (max-width: 768px) {
-            .logo .brand-text {
-                display: none;
-            }
+            .logo .brand-text { display: none; }
         }
 
         /* ===== الهيرو ===== */
@@ -250,15 +209,9 @@
             animation: shimmer 4s ease-in-out infinite;
         }
         @keyframes shimmer {
-            0% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-            100% {
-                background-position: 0% 50%;
-            }
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         .hero p {
             font-size: 1.1rem;
@@ -309,23 +262,12 @@
             transform: translateY(30px);
             animation: fadeUp 0.7s ease forwards;
         }
-        .section-card:nth-child(1) {
-            animation-delay: 0.05s;
-        }
-        .section-card:nth-child(2) {
-            animation-delay: 0.10s;
-        }
-        .section-card:nth-child(3) {
-            animation-delay: 0.15s;
-        }
-        .section-card:nth-child(4) {
-            animation-delay: 0.20s;
-        }
+        .section-card:nth-child(1) { animation-delay: 0.05s; }
+        .section-card:nth-child(2) { animation-delay: 0.10s; }
+        .section-card:nth-child(3) { animation-delay: 0.15s; }
+        .section-card:nth-child(4) { animation-delay: 0.20s; }
         @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
         .section-card:hover {
             transform: translateY(-6px);
@@ -356,9 +298,7 @@
             font-size: 1.2rem;
             transition: 0.3s;
         }
-        .section-card:hover .arrow {
-            transform: translateX(-5px);
-        }
+        .section-card:hover .arrow { transform: translateX(-5px); }
 
         /* ===== المحتوى الديناميكي ===== */
         .content-wrapper {
@@ -374,14 +314,8 @@
             animation: fadeSlide 0.4s ease;
         }
         @keyframes fadeSlide {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         .content-wrapper .back-btn {
             background: rgba(255, 255, 255, 0.05);
@@ -523,17 +457,8 @@
             justify-content: center;
             animation: fadeIn 0.3s ease;
         }
-        .discord-modal-overlay.show {
-            display: flex;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
-        }
+        .discord-modal-overlay.show { display: flex; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .discord-modal {
             background: #1a1a1a;
             border: 1px solid rgba(249, 168, 37, 0.15);
@@ -547,14 +472,8 @@
             position: relative;
         }
         @keyframes scaleUp {
-            from {
-                transform: scale(0.85);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+            from { transform: scale(0.85); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
         .discord-modal .modal-close {
             position: absolute;
@@ -568,10 +487,7 @@
             transition: 0.3s;
             font-family: 'Tajawal', sans-serif;
         }
-        .discord-modal .modal-close:hover {
-            color: #e63946;
-            transform: rotate(90deg);
-        }
+        .discord-modal .modal-close:hover { color: #e63946; transform: rotate(90deg); }
         .discord-modal .discord-icon {
             font-size: 4rem;
             color: #5865f2;
@@ -633,9 +549,7 @@
             opacity: 0;
             transition: 0.3s;
         }
-        .discord-modal .copy-feedback.show {
-            opacity: 1;
-        }
+        .discord-modal .copy-feedback.show { opacity: 1; }
         .discord-modal .modal-footer {
             margin-top: 1rem;
             font-size: 0.7rem;
@@ -643,13 +557,8 @@
             border-top: 1px solid rgba(255, 255, 255, 0.03);
             padding-top: 1rem;
         }
-        .discord-modal .modal-footer a {
-            color: #f9a825;
-            text-decoration: none;
-        }
-        .discord-modal .modal-footer a:hover {
-            text-decoration: underline;
-        }
+        .discord-modal .modal-footer a { color: #f9a825; text-decoration: none; }
+        .discord-modal .modal-footer a:hover { text-decoration: underline; }
 
         /* ===== الفوتر ===== */
         .footer {
@@ -661,35 +570,18 @@
             color: #64748b;
             font-size: 0.85rem;
         }
-        .footer a {
-            color: #e63946;
-            text-decoration: none;
-        }
-        .footer a:hover {
-            color: #c62828;
-            text-decoration: underline;
-        }
+        .footer a { color: #e63946; text-decoration: none; }
+        .footer a:hover { color: #c62828; text-decoration: underline; }
 
         /* ===== تحميل ===== */
-        .loader {
-            text-align: center;
-            padding: 2rem;
-            color: #94a3b8;
-        }
+        .loader { text-align: center; padding: 2rem; color: #94a3b8; }
         .loader i {
             font-size: 2rem;
             display: block;
             margin-bottom: 1rem;
             animation: spin 1s linear infinite;
         }
-        @keyframes spin {
-            0% {
-                transform: rotate(0);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
-        }
+        @keyframes spin { 0% { transform: rotate(0); } 100% { transform: rotate(360deg); } }
 
         /* ===== استجابة ===== */
         @media (max-width: 768px) {
@@ -706,63 +598,28 @@
                 border-top: 1px solid rgba(255, 255, 255, 0.03);
                 padding-top: 0.5rem;
             }
-            .nav-links a {
-                font-size: 0.75rem;
-            }
-            .ji-btn {
-                font-size: 0.8rem;
-                padding: 0.1rem 0.4rem;
-            }
-            .logo img {
-                width: 30px;
-                height: 30px;
-            }
-            .hero h1 {
-                font-size: 2.2rem;
-            }
+            .nav-links a { font-size: 0.75rem; }
+            .ji-btn { font-size: 0.8rem; padding: 0.1rem 0.4rem; }
+            .logo img { width: 30px; height: 30px; }
+            .hero h1 { font-size: 2.2rem; }
             .sections-grid {
                 grid-template-columns: 1fr 1fr;
                 gap: 1rem;
             }
-            .section-card {
-                padding: 1.2rem 0.8rem;
-            }
-            .section-card .icon {
-                font-size: 2.4rem;
-            }
-            .section-card h3 {
-                font-size: 1.1rem;
-            }
-            .content-card {
-                padding: 1.5rem;
-            }
-            .grid-2col {
-                grid-template-columns: 1fr;
-            }
-            .discord-modal {
-                padding: 2rem 1.5rem;
-            }
+            .section-card { padding: 1.2rem 0.8rem; }
+            .section-card .icon { font-size: 2.4rem; }
+            .section-card h3 { font-size: 1.1rem; }
+            .content-card { padding: 1.5rem; }
+            .grid-2col { grid-template-columns: 1fr; }
+            .discord-modal { padding: 2rem 1.5rem; }
         }
         @media (max-width: 480px) {
-            .sections-grid {
-                grid-template-columns: 1fr;
-            }
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            .nav-links a {
-                font-size: 0.7rem;
-            }
-            .nav-links {
-                gap: 0.5rem;
-            }
-            .logo img {
-                width: 26px;
-                height: 26px;
-            }
-            .ji-btn {
-                font-size: 0.7rem;
-            }
+            .sections-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 1.8rem; }
+            .nav-links a { font-size: 0.7rem; }
+            .nav-links { gap: 0.5rem; }
+            .logo img { width: 26px; height: 26px; }
+            .ji-btn { font-size: 0.7rem; }
         }
     </style>
 </head>
@@ -775,25 +632,22 @@
         <canvas id="waveCanvas"></canvas>
     </div>
 
-    <!-- ===== شريط التنقل الجديد ===== -->
+    <!-- ===== شريط التنقل ===== -->
     <nav class="navbar">
-        <!-- الجانب الأيسر: زر ji فقط -->
         <div class="navbar-left">
             <button class="ji-btn" onclick="openDiscordModal()">
                 ji<i class="fas fa-copyright"></i>
             </button>
         </div>
 
-        <!-- المنتصف: قائمة الروابط -->
         <div class="nav-links">
-            <a href="#" onclick="scrollToHome()">الرئيسية</a>
-            <a href="#" onclick="loadContent('laws')">القوانين</a>
-            <a href="#" onclick="loadContent('job')">التوظيف</a>
-            <a href="#" onclick="loadContent('careers')">الدورات</a>
-            <a href="#" onclick="loadContent('rewards')">المكافآت</a>
+            <a onclick="scrollToHome()">الرئيسية</a>
+            <a onclick="loadContent('laws')">القوانين</a>
+            <a onclick="loadContent('job')">التوظيف</a>
+            <a onclick="loadContent('careers')">الدورات</a>
+            <a onclick="loadContent('rewards')">المكافآت</a>
         </div>
 
-        <!-- الجانب الأيمن: الشعار + النص (رابط للسيرفر) -->
         <div class="navbar-right">
             <a href="https://discord.gg/RAS" target="_blank" class="logo">
                 <img src="https://oaalo.github.io/rasrca/image.png?v=2" alt="شعار الهلال الأحمر" />
@@ -834,7 +688,7 @@
         <div class="section-card" onclick="loadContent('careers')">
             <span class="icon">🏆</span>
             <h3>منصة الدورات</h3>
-            <p>فرص العمل ودورات التدريبيه</p>
+            <p>فرص العمل ودورات التدريبية</p>
             <span class="arrow">←</span>
         </div>
         <div class="section-card" onclick="loadContent('rewards')">
@@ -880,7 +734,43 @@
 
     <!-- ===== السكريبتات ===== -->
     <script>
-        // ===== الأمواج =====
+        // ================================================================
+        //  1) استرجاع الرابط النظيف من 404.html (إن وُجد)
+        // ================================================================
+        (function restoreCleanUrl() {
+            const redirectPath = sessionStorage.getItem('redirectPath');
+            if (redirectPath) {
+                sessionStorage.removeItem('redirectPath');
+                history.replaceState(null, '', redirectPath);
+            }
+        })();
+
+        // ================================================================
+        //  2) تحديد القسم المطلوب من الرابط
+        // ================================================================
+        function getSectionFromUrl() {
+            let path = window.location.pathname;
+            path = path.replace(/\/$/, '');
+            const parts = path.split('/');
+            const last = parts[parts.length - 1] || '';
+            const validSections = ['laws', 'job', 'careers', 'rewards'];
+            return validSections.includes(last) ? last : 'home';
+        }
+
+        // ================================================================
+        //  3) تحديث الرابط عند التنقل (بدون إعادة تحميل الصفحة)
+        // ================================================================
+        function updateUrl(section) {
+            const base = '/rasrca';
+            const newPath = section === 'home' ? `${base}/` : `${base}/${section}`;
+            if (window.location.pathname !== newPath) {
+                history.pushState({ section: section }, '', newPath);
+            }
+        }
+
+        // ================================================================
+        //  4) الأمواج
+        // ================================================================
         const canvas = document.getElementById('waveCanvas');
         const ctx = canvas.getContext('2d');
         let width, height, waveOffset = 0;
@@ -906,8 +796,7 @@
                 for (let x = 0; x <= width; x++) {
                     const y = height / 2 +
                         Math.sin(x * wave.frequency + waveOffset * wave.speed + index * 1.8) * wave.amplitude +
-                        Math.sin(x * wave.frequency * 0.6 + waveOffset * wave.speed * 0.8 + index * 1.2) * (wave
-                            .amplitude * 0.5);
+                        Math.sin(x * wave.frequency * 0.6 + waveOffset * wave.speed * 0.8 + index * 1.2) * (wave.amplitude * 0.5);
                     ctx.lineTo(x, y);
                 }
                 ctx.lineTo(width, height);
@@ -922,7 +811,9 @@
         resizeCanvas();
         drawWaves();
 
-        // ===== التنقل =====
+        // ================================================================
+        //  5) التنقل وتحميل المحتوى
+        // ================================================================
         function scrollToHome() {
             document.getElementById('homeHero').scrollIntoView({ behavior: 'smooth' });
             if (document.getElementById('contentWrapper').classList.contains('active')) {
@@ -930,7 +821,7 @@
             }
         }
 
-        function loadContent(section) {
+        function loadContent(section, skipUrlUpdate) {
             const wrapper = document.getElementById('contentWrapper');
             const dynamic = document.getElementById('dynamicContent');
 
@@ -940,6 +831,10 @@
             wrapper.classList.add('active');
 
             dynamic.innerHTML = `<div class="loader"><i class="fas fa-spinner"></i> جاري التحميل...</div>`;
+
+            if (!skipUrlUpdate) {
+                updateUrl(section);
+            }
 
             fetch(`${section}.html`)
                 .then(res => {
@@ -963,16 +858,44 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        function goHome() {
+        function goHome(skipUrlUpdate) {
             const wrapper = document.getElementById('contentWrapper');
             wrapper.classList.remove('active');
             document.getElementById('sectionsGrid').style.display = 'grid';
             document.getElementById('homeHero').style.minHeight = '85vh';
             document.getElementById('homeHero').style.padding = '3rem 0';
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            if (!skipUrlUpdate) {
+                updateUrl('home');
+            }
         }
 
-        // ===== مودال الديسكورد =====
+        // ================================================================
+        //  6) عند رجوع/تقدم المتصفح (Back / Forward)
+        // ================================================================
+        window.addEventListener('popstate', function() {
+            const section = getSectionFromUrl();
+            if (section === 'home') {
+                goHome(true);
+            } else {
+                loadContent(section, true);
+            }
+        });
+
+        // ================================================================
+        //  7) عند تحميل الصفحة لأول مرة: افتح القسم المطلوب تلقائياً
+        // ================================================================
+        window.addEventListener('DOMContentLoaded', function() {
+            const section = getSectionFromUrl();
+            if (section !== 'home') {
+                setTimeout(() => loadContent(section, true), 100);
+            }
+        });
+
+        // ================================================================
+        //  8) مودال الديسكورد
+        // ================================================================
         function openDiscordModal() {
             document.getElementById('discordModal').classList.add('show');
             document.getElementById('copyFeedback').classList.remove('show');
@@ -1025,7 +948,9 @@
             }
         });
 
-        // ===== تأثير ظهور البطاقات =====
+        // ================================================================
+        //  9) تأثير ظهور البطاقات
+        // ================================================================
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
